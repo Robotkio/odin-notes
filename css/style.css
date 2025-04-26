@@ -1,0 +1,103 @@
+body {
+    background-color: gray;
+    font-family: "Calibri", "Helvetica", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+}
+
+.main-content {
+    width: 600px;
+    padding: 20px;
+}
+
+.section {
+    /* empty */
+    color: inherit;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* padding: 10px 15px;
+    border-radius: 50px;
+    background-color: #666; */
+}
+
+.section-title>h1,
+.section-title>h2,
+.section-title>h3,
+.section-title>h4,
+.section-title>h5,
+.section-title>h6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.section-title:hover {
+    cursor: pointer;
+}
+
+.section-content {
+    display: inherit;
+}
+
+.block {
+    display: block;
+}
+
+mark {
+    background-color: rgba(255, 255, 0, 0.2);
+    padding: 2px;
+}
+
+code.block {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+code {
+    background-color: #222;
+    color: gray;
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+.q-card {
+    display: block;
+    background-color: #666;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.question {
+    color: #111;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.answer {
+    background-color: gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.correction {
+    color: #111;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+h3>a {
+    text-decoration: none;
+    font-weight: 200;
+}

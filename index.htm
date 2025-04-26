@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odin Project Notes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/func.js" defer></script>
+</head>
+<body>
+    <div class="main-content">
+        <h1>Odin Project Notes</h1>
+
+        <p>I realized there are thing that I learn in the Odin Project that I both don't exercise immediately and are new to me. I want to be able to remember these things so I'm going to start keeping this document as a form of notes.</p>
+
+        <p>Much of the program I've already completed so the part that I actually take notes in is going to be, I think, a little bit all over the place.</p>
+
+        <!-- Javascript Basics -->
+        <div class="section">
+            <div class="section-title">
+                <h2>Javascript Basics</h2>
+                <span>&#9660;</span>
+            </div>
+            <div class="section-content">
+                <!-- Data Types and conditionals -->
+                <h3>Data Types and Conditionals</h3>
+
+                <code class="block">"1" + 1 = "11"<br>
+                    1 + "1" = 2
+                </code>
+
+                <h4>Knowledge Check</h4>
+                <div class="q-card">
+                    <div class="question">
+                        What are the eight data types in JavaScript?
+                    </div>
+                    <div class="answer">
+                        String, number, <del>NaN</del>, bigInt, Undefined, Object, null and something else that is a name a thing has so things like "isa()" will work.
+                        <div class="correction">
+                            The last thing I was thinking of was "symbol". Also NaN isn't one, I forgot boolean.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">Which data type is NOT primitive?</div>
+                    <div class="answer">
+                        String, Object and symbol are not primitive as far as I know.
+                        <div class="correction">Object is the only non-primitive data type. I guess that's because strings are arrays and symbols may be like an enum?</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the relationship between null and undefined?</div>
+                    <div class="answer">
+                        If I look at a variable as being two things: a bucket that's designed to fit a specific thing and a name for that bucket. A <code>number</code> variable fits a <code>number</code> and is called by its variable name. The <code>null</code> keyword denotes that a variable has a bucket, but nothing is in it, yet. The <code>undefined</code> keyword means the variable has a name, but it doesn't even have a bucket yet.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the difference between single, double, and backtick quotes for strings?</div>
+                    <div class="answer">
+                        Single and double are interchangeable. Backtick quotes allow you to place code into strings like <code>let string = `my name is ${name}!`</code> and the <code>name</code> variable will be inserted in.
+                        <div class="correction">Backtick strings are called "template literals". <mark>They can also be declared over multiple lines!</mark></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the term for joining strings together?</div>
+                    <div class="answer">
+                        Concatination. I'm not certain if concatination is better in JavaScript or for big things you want a string builder like in Java.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">Which type of quote lets you embed variables/expressions in a string?</div>
+                    <div class="answer">
+                        Backtick quotes.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">How do you embed variables/expressions in a string?</div>
+                    <div class="answer">
+                        See "the differences between single, double and backtick quotes" question.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">How do you use escape characters in a string?</div>
+                    <div class="answer">
+                        <del>Forward slash. <code>let string = "he said /"hello/""</code></del>
+                        <div class="correction">It's actually backslash! It's also important to know that when it comes to quotes, you can use the non-declared type inside of the declared one without escaping it. <code>let string = `He said, "I'm OK."`;</code> is valid.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the difference between the slice/substring string methods?</div>
+                    <div class="answer">
+                        Oooh, not sure. I think substring lets you pick a point in a string and grab a certain number of characters but I'm not sure about slice. I'm guessing you pick a point and it cuts off everything before that.
+                        <div class="correction">I was somewhat right, at least about substring. Both can take a start and end value and will return the characters between those two. Both can ignore the end value and it will just return from the chosen point to the end. <note>Slice can be given negative values and it will count from the end of the string.</note></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What are the three logical operators, and what do they stand for?</div>
+                    <div class="answer">
+                        I assume this is asking for <code>== && ||</code> which stand for equals, and, or, respectively.
+                        <div class="correction">It's not <code>==</code>, it's <code>!</code>. I can't believe I forgot that one.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What are the comparison operators?</div>
+                    <div class="answer">
+                        Not sure, I think that's <code>== ===</code> which are "equal value" and "equal value and type" respectively.
+                        <div class="correction">I also entirely neglected <code>> >= < <= !=</code>.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What are truthy and falsy values?</div>
+                    <div class="answer">
+                        I think that's something like non-zero values default to evaluating to true and 0 values default to being false. A null object would be false, but a string like <code>"false"</code> would be true because it contains values.
+                        <div class="correction">Close but incomplete. <code>0, "", null, undefined, NaN, false</code> all evaluate to false. Everything else evaluates to true.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What are the falsy values in JavaScript?</div>
+                    <div class="answer">
+                        See above.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What are conditionals?</div>
+                    <div class="answer">
+                        I assume that means if/else and switch statements.
+                        <div class="correction">Also else if, technically.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the syntax for an if/else conditional?</div>
+                    <div class="answer">
+                        <code class="block">if (condition) {<br>&nbsp;&nbsp;&nbsp;&nbsp;//code<br>} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;//code<br>}</code>
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the syntax for a switch statement?</div>
+                    <div class="answer">
+                        <code class="block">switch (variable) {<br>case case1:<br>&nbsp;&nbsp;&nbsp;&nbsp;//code<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>case case2:<br>&nbsp;&nbsp;&nbsp;&nbsp;//code<br>default:<br>&nbsp;&nbsp;&nbsp;&nbsp;//code<br>}</code>
+                        And this lets case2 also run whatever is in default because it doesn't have a <code>break;</code> statement.
+                        <div class="correction">I forgot the keyword "case" infront of the cases.</div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is the syntax for a ternary operator?</div>
+                    <div class="answer">
+                        <code class="block">conditional ? case_true : case_false;</code>
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <div class="q-card">
+                    <div class="question">What is nesting?</div>
+                    <div class="answer">
+                        It's what happens when code exists "inside" other code. Like an if statement inside another if statement is considered nested.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+            </div> <!-- /section-content -->
+        </div> <!-- / section -->
+
+        <!-- JavaScript Developer Tools -->
+        <h3>JavaScript Developer Tools</h3>
+
+        <ul>
+            <li>There's some good tips for logging things in the console <a href="https://www.youtube.com/watch?v=xkzDaKwinA8">in this video</a>.</li>
+            <li>They're called methods when they're a part of an object and functions outside of an object.</li>
+            <li>JS has default parameters now <code>function fun(variable = "default) {}</code></li>
+            <li>JS does the anonymous function thing which is cool. Default function formatting can be replaced by "arrow functions". So rather than the above code it could be <code>(variable) => { };</code> Or, fun fact:
+            <code class="block">item => item * 2</code> is the same as
+            <code class="block">function doubleItem(item) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return item * 2;<br>}</code></li>
+            <li>Weird, useful thing: <code>text = text || "default";</code> will assign <code>text</code> a value if it's falsy.</li>
+            <li>"let" vs "var". "let" works like I expect it to, scope-wise. "var", for some reason, scopes out one level. Use "let" for consistency.</li>
+        </ul>
+
+        <div class="q-card">
+            <div class="question">What is the difference between a function declaration and a function expression?</div>
+            <div class="answer">
+                A function declaration is kind of the normal, top-level way of writing out a function. A function expression is when you write out a function as a part of a variable assignment. <code>let sum = function(a, b) { return a + b; };</code> This function doesn't exist until this line of code is called. That's what a function expression is. A defined function can be called before its definition because it's created earlier.
+                <div class="correction"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
