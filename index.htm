@@ -25,8 +25,9 @@
                 <!-- Data Types and conditionals -->
                 <h3>Data Types and Conditionals</h3>
 
-                <code class="block">"1" + 1 = "11"<br>
-                    1 + "1" = 2
+                <code class="block">"1" + 1 + 1 = "111"<br>
+                    1 + "1" + 1 = 3<br>
+                    1 + ("1" + 1) = 12
                 </code>
 
                 <h4>Knowledge Check</h4>
@@ -178,30 +179,56 @@
                         <div class="correction"></div>
                     </div>
                 </div>
+
+                <!-- JavaScript Developer Tools -->
+                <h3>JavaScript Developer Tools</h3>
+
+                <ul>
+                    <li>There's some good tips for logging things in the console <a href="https://www.youtube.com/watch?v=xkzDaKwinA8">in this video</a>.</li>
+                    <li>They're called methods when they're a part of an object and functions outside of an object.</li>
+                    <li>JS has default parameters now <code>function fun(variable = "default) {}</code></li>
+                    <li>JS does the anonymous function thing which is cool. Default function formatting can be replaced by "arrow functions". So rather than the above code it could be <code>(variable) => { };</code> Or, fun fact:
+                    <code class="block">let f = item => item * 2</code> is the same as
+                    <code class="block">let f = function doubleItem(item) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return item * 2;<br>}</code></li>
+                    <li>Weird, useful thing: <code>text = text || "default";</code> will assign <code>text</code> a value if it's falsy.</li>
+                    <li>"let" vs "var". "let" works like I expect it to, scope-wise. "var", for some reason, scopes out one level. Use "let" for consistency.</li>
+                </ul>
+
+                <div class="q-card">
+                    <div class="question">What is the difference between a function declaration and a function expression?</div>
+                    <div class="answer">
+                        A function declaration is kind of the normal, top-level way of writing out a function. A function expression is when you write out a function as a part of a variable assignment. <code>let sum = function(a, b) { return a + b; };</code> This function doesn't exist until this line of code is called. That's what a function expression is. A defined function can be called before its definition because it's created earlier.
+                        <div class="correction"></div>
+                    </div>
+                </div>
+
+                <!-- Arrays and Loops -->
+                <h3>Arrays and Loops</h3>
+
+                <p>Array notes...</p>
+                <ul>
+                    <li>Arrays are objects (typeof)</li>
+                    <li><code>array.push(element);</code> to add an element</li>
+                    <li>JS does not support arrays with named indexes (aka associative arrays). Only numbered indexes. (Objects use named indexes. Which is ironic since arrays "are" an object.)</li>
+                    <li>I think you can duplicate an array with <code>let newArray = new Array(oldArray);</code></li>
+                    <li>Don't use <code>typeof</code> to see if something is an array, use <code>Array.isArray(arrayName);</code> or <code>arrayName instanceof Array;</code></li>
+                    <li><code>arrayName.pop()</code> removes and returns the last element</li>
+                    <li><code>arrayName.shift()</code> removes and returns the first element</li>
+                    <li><code>arrayName.push()</code> adds an element to the end</li>
+                    <li><code>arrayName.unshift()</code> adds an element to the front</li>
+                    <li><code>arrayName.join("x")</code> returns a string of all the elements of the array with whatever value is given between them. Code here would give something like <code>1*2*3</code></li>
+                    <li><code>arrayName.concat(otherArray1, otherArray2, ...)</code> to combine arrays (unlimited arguments)</li>
+                    <li>More stuff at <a href="https://www.w3schools.com/js/js_array_methods.asp">W3Schools</a> but those seem like the majority</li>
+                </ul>
+
+                <p>Loop notes...</p>
+                <ul>
+                    <li><code>for (const item of collection) { }</code> "for...of" loop</li>
+                    <li><code>const newArray = oldArray.map(function);</code> .map performs the function on each element of the array and then returns the modified verson of the array. The function must return the modified value</li>
+                    <li><code>const newArray = oldArray.filter(function);</code> .filter will perform the function but the function must return true or false and only true elements will be returned (ie. function checks if each element starts with the letter "L")</li>
+                </ul>
             </div> <!-- /section-content -->
-        </div> <!-- / section -->
-
-        <!-- JavaScript Developer Tools -->
-        <h3>JavaScript Developer Tools</h3>
-
-        <ul>
-            <li>There's some good tips for logging things in the console <a href="https://www.youtube.com/watch?v=xkzDaKwinA8">in this video</a>.</li>
-            <li>They're called methods when they're a part of an object and functions outside of an object.</li>
-            <li>JS has default parameters now <code>function fun(variable = "default) {}</code></li>
-            <li>JS does the anonymous function thing which is cool. Default function formatting can be replaced by "arrow functions". So rather than the above code it could be <code>(variable) => { };</code> Or, fun fact:
-            <code class="block">item => item * 2</code> is the same as
-            <code class="block">function doubleItem(item) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return item * 2;<br>}</code></li>
-            <li>Weird, useful thing: <code>text = text || "default";</code> will assign <code>text</code> a value if it's falsy.</li>
-            <li>"let" vs "var". "let" works like I expect it to, scope-wise. "var", for some reason, scopes out one level. Use "let" for consistency.</li>
-        </ul>
-
-        <div class="q-card">
-            <div class="question">What is the difference between a function declaration and a function expression?</div>
-            <div class="answer">
-                A function declaration is kind of the normal, top-level way of writing out a function. A function expression is when you write out a function as a part of a variable assignment. <code>let sum = function(a, b) { return a + b; };</code> This function doesn't exist until this line of code is called. That's what a function expression is. A defined function can be called before its definition because it's created earlier.
-                <div class="correction"></div>
-            </div>
-        </div>
-    </div>
+        </div> <!-- /section : Javascript Basics-->
+    </div> <!-- /main-content -->
 </body>
 </html>
