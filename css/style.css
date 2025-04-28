@@ -16,6 +16,10 @@ a:hover {
     padding: 20px;
 }
 
+.hide {
+    display: none !important;
+}
+
 .section {
     /* empty */
     color: inherit;

@@ -1,16 +1,17 @@
-function makeSectionsButtons() 
-{
-    let sections = document.getElementsByClassName("section");
+const sections = document.querySelectorAll(".section");
+console.log(sections);
 
-    for (let section in sections) {
-        section.onClick = function() {
-            console.log(this);
-        };
-    }
-}
+sections.forEach((section) => {
+    const title = section.getElementsByClassName("section-title");
+    const content = section.getElementsByClassName("section-content");
+    const arrow = title[0].getElementsByClassName("section-arrow");
 
-function toggleSectionVisibility() {
-       this.style
-}
-
-makeSectionsButtons();
+    title[0].addEventListener("click", (e) => {
+        content[0].classList.toggle("hide");
+        if (content[0].classList.contains("hide")) {
+            arrow[0].innerHTML = "&#9668;";
+        } else {
+            arrow[0].innerHTML = "&#9660;";
+        }
+    });
+});

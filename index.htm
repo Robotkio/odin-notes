@@ -19,16 +19,23 @@
         <div class="section">
             <div class="section-title">
                 <h2>Javascript Basics</h2>
-                <span>&#9660;</span>
+                <span class="section-arrow">&#9660;</span>
             </div>
             <div class="section-content">
-                <!-- Data Types and conditionals -->
-                <h3>Data Types and Conditionals</h3>
 
-                <code class="block">"1" + 1 + 1 = "111"<br>
-                    1 + "1" + 1 = 3<br>
-                    1 + ("1" + 1) = 12
-                </code>
+                <!-- SECTION - Data Types and conditionals -->
+                <div class="section">
+                    <div class="section-title">
+                        <h3>Data Types and Conditionals</h3>
+                        <span class="section-arrow">&#9660;</span>
+                    </div>
+                    <div class="section-content"></div>
+                        <code class="block">"1" + 1 + 1 = "111"<br>
+                            1 + "1" + 1 = 3<br>
+                            1 + ("1" + 1) = 12
+                        </code>
+                    </div>
+                </div> <!-- /SECTION - Data Types and conditionals-->
 
                 <h4>Knowledge Check</h4>
                 <div class="q-card">
@@ -227,6 +234,62 @@
                     <li><code>const newArray = oldArray.map(function);</code> .map performs the function on each element of the array and then returns the modified verson of the array. The function must return the modified value</li>
                     <li><code>const newArray = oldArray.filter(function);</code> .filter will perform the function but the function must return true or false and only true elements will be returned (ie. function checks if each element starts with the letter "L")</li>
                 </ul>
+
+                <!-- DOM Manipulation and Events -->
+                <h3>DOM Manipulation and Events</h3>
+
+                <h4>DOM methods</h4>
+                <ul>
+                    <li><code>document.querySelector(".controls");</code> gets the first instance of the .controls class.</li>
+                    <li><code>document.querySelectorAll(".controls");</code> gets all the instances of .controls classes.It is NOT an Array, however, it's a NodeList. I can use <code>Array.from(nodeList)</code> to convert it to an array or use the "<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax">spread operator</a>" which I'm not familiar with, yet.</li>
+                    <li>Can create elements with <code>document.createElement(tagName, [options])</code> which allows me to modify it before adding it to the DOM</li>
+                    <li><code>parentNode.appendChild(childNode)</code> appends childNode as the last child of parentNode</li>
+                    <li><code>parentNode.insertBefore(newNode, referenceNode)</code> inserts newNode into parentNode before ReferenceNode</li>
+                    <li><code>parentNode.removeChild(child)</code> emoves child from parentNode on the DOM and returns a reference to child</li>
+                    <li>I can modify those created elements more easily like so:
+                        <code class="block">const myDiv = document.createElement("div");<br>
+                            myDiv.style.color = "blue";<br>
+                            div.style.cssText = "color: blue; background: white;";<br>
+                            div.setAttribute("style", "color: blue; background: white;");</code>
+                    </li>
+                    <li>When accessing properties that have a "-" in them you can't use a dash. There are alternatives, though:
+                        <code class="block">div.style.<mark>background-color</mark>; // this doesn't work<br>
+                            div.style.backgroundColor; // camelCase works<br>
+                            div.style["background-color"]; // bracket notation works!<br>
+                            div.style["backgroundColor"]; // camelCase inside brackets works</code>
+                    </li>
+                    <li>I can CRUD <mark>attributes</mark>
+                        <code class="block">div.setAttribute("id", "theDiv"); // adds and updates<br>
+                            div.getAttribute("id");<br>
+                            div.removeAttribute("id");</code>
+                    </li>
+                        <li>I can add, remove and toggle <mark>classes</mark>. "Toggle" meaning add it if it doesn't have it already or remove it if it has the class already.
+                        <code class="block">div.classList.add("newClass");<br>
+                            div.classList.remove("newClass");<br>
+                            div.classList.toggle("newClass");</code>
+                        They say it's cleaner to toggle for some reason rather than adding and removing inline CSS.
+                    </li>
+                    <li>If you just want to add text, use <code>myDiv.textContent = "Text!";</code></li>
+                    <li>If you want to add HTML, use <code>myDiv.innerHTML = "&lt;span&gt;Text!&lt;/span&gt;";</code> but doing that is a bit less secure than using textContent.
+                    </li>
+                </ul>
+
+                <h4>Events</h4>
+
+                <ul>
+                    <li>Two methods of adding functionality on click:
+                        <code class="block">btn.onclick = functionName;<br>
+                        btn.addEventListener("click", functionName);</code>
+                        You can only add a single "onclick" but there can be multiple "click" event listeners.
+                    </li>
+                    <li>When you do something like:
+                        <code class="block">btn.addEventListener("click", function (e) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log(e);<br>
+                            });</code>
+                        The event is passed to the function. The Event object has some useful functions.
+                    </li>
+                </ul>
+
             </div> <!-- /section-content -->
         </div> <!-- /section : Javascript Basics-->
     </div> <!-- /main-content -->
