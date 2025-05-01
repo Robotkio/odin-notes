@@ -290,6 +290,125 @@
                     </li>
                 </ul>
 
+                <!-- Object Basics -->
+                <h3>Object Basics</h3>
+
+                <ul>
+                    <li>Objects seem to work slightly more fluidly than in other languages I've learned. They're made of key, value pairs and I can seem to just make them on the fly.
+                        <code class="block">let user = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;name: "Cory",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;age: 38<br>
+                        };</code>
+                    </li>
+                    <li>I can add a property just by using dot notation? <code>user.isAdmin = true;</code> or remove a property by using <code>delete user.age;</code></li>
+                    <li>Can have multi-word properties like:
+                        <code class="block">let user = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;name: "Cory",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"likes birds": true<br>
+                        };</code>
+                        And access it like so:
+                        <code class="block">user["likes birds"] = false;<br>
+                            let key = "likes birds";<br>
+                            user[key] = true;
+                        };</code></li>
+                    <li>It seems like as long as anything within the square brackets resolves into a string you can use it for object key names.
+                        <code class="block">let fruit = "apple";<br>
+                            let bag = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;[fruit + "Computers"]: 5<br>
+                            };<br>
+                            (bag.appleComputers == 5) // true</code></li>
+                    <li>There is also an object constructor and a shorthand for using it to make objects quickly. This is what it looks like by default:
+                        <code class="block">function makeUser(name, age) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: name,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;age: age<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                            }<br>
+                            let user = makeUser("John", 30);<br>
+                            (user.name === "John"); // true</code>
+                        Here's what you can shorten it to:
+                        <code class="block">function makeUser(name, age) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name, // same thing as "name:name"<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;age // same thing as "age:age"<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                            }</code>
+                        Or, say:
+                        <code class="block">let name = "Joe";<br>
+                            let user = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;name, // again, same as "name:name"<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;age: 30 // so you can combine them<br>
+                            }</code></li>
+                    <li>Property names can be dumb things like <code>for, let, return</code> and that won't break anything.</li>
+                    <li>As an aside, other types for names are converted into strings. For example:
+                        <code class="block">let obj = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;0: "test" //same as "0": "test<br>
+                            }<br>
+                            (obj["0"] === "test"); // true<br>
+                            (obj[0] === "test"); // true, 0 is converted to "0"</code></li>
+                    <li>Make sure a property uses the keyword "in": <code>if ("keyName" in objectName) {}</code>. Checking for <code>undefined</code> <em>kind of</em> works unless that data can be undefined in a valid way.</li>
+                    <li>The for..in loop is useful (I'm thinking of it like a for-each loop).
+                        <code class="block">let user = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;name: "Cory",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;age: 38<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;isAdmin: true<br>
+                        };<br>
+                        for (let key in user) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;alert( key ); // name, age, isAdmin<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;alert( user[key] ); // "Cory", 38, true<br>
+                        }
+                        </code></li>
+                    <li>What order are the properties in? Integer properties are sorted but others appear in creation order. If you want to "cheat" a common way is to put a "+" infront of the numbers, <code>"+49":"Germany"</code>(think area codes in this example) and refer to it later with, say:
+                    <code>for (let code in codes) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert( +code );<br>
+                    }</code>
+                    See the "Ordered Like an Object" section of <a href="https://javascript.info/object">this page</a> for further reference.</li>
+                    <li>Object references are basically like pointers. Even if you assign it to another variable both will be pointing to the same object.</li>
+                </ul>
+
+                <!-- Intermediate/advanced array magic -->
+                <h3>Intermediate/advanced array magic</h3>
+
+                <ul>
+                    <li>There are a few, key tools for going through functions. <code>map, filter, reduce</code> that all take "callback" functions.</li>
+                    <li>A <code>map</code> is a useful tool for applying a function to each element of an array.
+                        <code class="block">function addOne(num) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return num + 1;<br>
+                            }<br>
+                            const arr = [1, 2, 3, 4, 5];<br>
+                            const mappedArr = arr.map(addOne);<br>
+                            console.log(mappedArr); // Outputs [2, 3, 4, 5, 6]</code>
+                        It returns a new array with the modified values and leave the original array unchanged.
+                    </li>
+                    <li>There's also a <code>filter</code>:
+                        <code class="block">function isOdd(num) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return num % 2 !== 0;<br>
+                            }<br>
+                            const arr = [1, 2, 3, 4, 5];<br>
+                            const oddNums = arr.filter(isOdd);<br>
+                            console.log(oddNums); // Outputs [1, 3, 5];</code>
+                        Like a map, it also returns a new array and leaves the original array intact.
+                    </li>
+                    <li><code>reduce</code> is similar to map and filter in that it goes through an array, but it's for accumulating, say, a total value from all the values in the array. A reduce is passed two values: first, the callback function and second, the total to start at.
+                    <code class="block">const arr = [1, 2, 3, 4, 5];<br>
+                        const productOfAllNums = arr.reduce((total, currentItem) => {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return total * currentItem;<br>
+                        }, 1);<br>
+                        console.log(productOfAllNums); // Outputs 120;
+                    </code></li>
+                    <li>So I guess at the end of the day a <code>map</code> function returns a value to be placed in the new array, a <code>filter</code> function returns a boolean to decide if the old value is passed into the new array and a <code>reduce</code> processes all values together.
+                    </li>
+                    <li>The example the Odin project gives starts with an array of sandwich ingredients (bread, meat, lettuce, pickles). <code>filter</code> removes ingredients you don't want (pickles), <code>map</code> prepares up the ingredients (cuts up the meat, lettuce and bread) and <code>reduce</code> combines them all into a sandwich.</li>
+                    <li>Combined, this code:
+                        <code class="block">function sumOfTripledEvens(array) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return array<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.filter((num) => num % 2 === 0)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.map((num) => num * 3)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.reduce((acc, curr) => acc + curr);<br>
+                          }</code>
+                        sumOfTripledEvens takes an array of numbers, removes odd ones, triples every value and returns the sum of all tripled, even values.
+                    </li>
+                </ul>
             </div> <!-- /section-content -->
         </div> <!-- /section : Javascript Basics-->
     </div> <!-- /main-content -->

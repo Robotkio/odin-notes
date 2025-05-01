@@ -105,3 +105,16 @@ h3>a {
     text-decoration: none;
     font-weight: 200;
 }
+
+li {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+li:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+li:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
