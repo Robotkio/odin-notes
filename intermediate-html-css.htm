@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermediate HTML and CSS Course - Odin Notes</title>
+    <link rel="stylesheet" href="css/notes-style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/foldable-sections.js" defer></script>
+</head>
+
+<body>
+    <div id="foldables">
+        <h1>Intermediate HTML and CSS Course Notes</h1>
+        <section>
+            <h2>Intermediate HTML Concepts</h2>
+            <p>Emmet is more powerful auto-complete/navigation for Visual Studio Code. SVG is vector graphics. Tables have a few more things to them these days than they used to. Default Styles talks about CSS resets.</p>
+            <section>
+                <h3>Emmet</h3>
+                <ul>
+                    <li>Lot of neat productivity key commands.</li>
+                    <li>Key binds are disabled by default, find them in the gear icon in the bottom left, "keyboard
+                        shortcuts", search "emmet".</li>
+                    <li><a href="https://docs.emmet.io/cheat-sheet/">Emmet Cheat Sheet</a> kind of gigantic, don't think
+                        I need much</li>
+                    <li><a href="https://marketplace.visualstudio.com/items?itemName=agutierrezr.emmet-keybindings">Emmet
+                            Keybindings</a> not mandatory, I've used different ones</li>
+                </ul>
+            </section>
+            <section>
+                <h3>SVG</h3>
+                <ul>
+                    <li>Default sort of svg looking thing:
+                        <code class="block">
+                            &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;rect x=0 y=0 width=100 height=50 /><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;circle class="svg-circle" cx="50" cy="50" r="10"/><br>
+                            &lt;/svg>
+                        </code>
+                    </li>
+                    <li><code>xmlns</code> stands for XML NameSpace and mentions what dialect of XML</li>
+                    <li><code>viewBox</code> bounds of the SVG, ratio and origin</li>
+                    <li><code>class, id</code> act like in</li>
+                    <li><code>&lt;circle>, &lt;rect>, &lt;path>, &lt;text></code> building blocks</li>
+                    <li><code>fill, strike</code> can be changed in CSS!</li>
+                    <li>SVGs can be used linked and inline</li>
+                    <li>Good source of <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">SVG icons</a></li>
+                    <li>Another good <a href="https://feathericons.com/">source of SVG icons</a></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Tables</h3>
+                <ul>
+                    <li><mark>Only use tables for structuring tabular data. Only.</mark></li>
+                    <li>I basically remember how this works.</li>
+                    <li><code>table</code> children are tr, caption, thead, tbody, tfoot</li>
+                    <li><code>tr</code> table row, children are td and th</li>
+                    <li><code>td</code> table data</li>
+                    <li><code>th</code> table header, takes scope, id and headers attributes</li>
+                    <li><code>colspan, rowspan</code> does what it says on the tin</li>
+                    <li><code>caption</code> captions the table (above by default)</li>
+                    <li><code>scope="col"</code> can be added for screen readers to know the scope of the table that the header applies to. also uses <code>"row", "colgroup", "rowgroup"</code> The "-group" tags can denote the, say, group of headings.</li>
+                    <li>alternative to scope is <code>id, headers</code> "id" is used for noting what a header is, the "headers" tag is used to tell what headers a "td" is related to</li>
+                    <li>for how to use <code>scope, id, headers</code> <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Table_accessibility">check out this tutorial</a></li>
+                    <li>Ohhh ... there's also a lot more things to know. I'm going to take further <a href="https://css-tricks.com/complete-guide-table-element/">notes from this link.</a></li>
+                    <li><code>thead, tbody, tfoot</code> <mark>tr is the child of these</mark> not td, th!</li>
+                    <li>Key styling aspects: <code>border-spacing: 5px;</code>, <code>border-collapse: collapse</code>, <code>white-space: nowrap</code> can cause data to go outside the table</li>
+                    <li>Tables act like a hybrid div/span: they only take up the space they need to like span but place later elements on a new line like div</li>
+                    <li>There's a huge <a href="https://www.pencilandpaper.io/articles/ux-pattern-analysis-enterprise-data-tables">article here on table UX</a> (I thought tables were archaic but realize they're as important as excell lol)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Default Styles</h3>
+                <ul>
+                    <li>This section is mostly about style resets.</li>
+                    <li>Good <a href="https://css-tricks.com/reboot-resets-reasoning/">article here</a> on a variety of resets and context for resets as a whole.</li>
+                    <li>There's also apparently a <a href="https://cssdeck.com/blog/scripts/vanilla-css-un-reset/">CSS un-reset</a> used for an initial standardization after wiping everything out.</li>
+                    <li>More reading <a href="https://mattbrictson.com/blog/css-normalize-and-reset">here</a> and <a href="https://www.joshwcomeau.com/css/custom-css-reset/">here</a> for just ways of thinking about resets.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>CSS Units</h3>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </section>
+        </section>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+/* layout */
+
+#foldables {
+    width: 800px;
+    padding: 1px;
+    border-radius: 10px;
+}
+
+#foldables>h1 {
+    text-align: center;
+}
+
+.title-wrapper {
+    cursor: pointer;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.title-wrapper:hover {
+    background-color: rgba(255,255,255,0.08);
+    border-radius: 10px;
+}
+
+.title-wrapper>* {
+    margin: 0px;
+    padding: 5px;
+}
+
+.title-arrow {
+    user-select: none;
+    align-content: center;
+}
+
+section {
+    border-radius: 10px;
+    padding: 1px;
+    margin: 1px;
+}
+
+section>p, 
+section>ol, 
+section>ul {
+    margin-left: 5px;
+}
+
+/* colours */
+
+body {
+    background-color: grey;
+}
+
+#foldables {
+    background-color: #aaa;
+}
+
+section {
+    background-color: #999;
+}
+
+section>section {
+    background-color: #888;
+}
+
+section>section>section {
+    background-color: #777;
+}
+
+section>section>section>section {
+    background-color: #666;
+}
+
+#show-all-btn, #hide-all-btn {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    background: none;
+}
