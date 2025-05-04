@@ -1,6 +1,7 @@
 
 const hideAllBtnTxt = "Hide All";
 const showAllBtnTxt = "Show All";
+const openRecentBtnTxt = "Open Recent";
 const openSectionIcon = "▼";
 const closedSectionIcon = "◄";
 
@@ -9,6 +10,7 @@ wrapTitles();
 addHideAllButton();
 addShowAllButton();
 hideAllSections(); // hides everything on page open
+openAllLastSections(); // opens the latest section of notes
 
 for (let title of document.querySelectorAll(".title-wrapper")) {
     title.addEventListener("click", (event) => {
@@ -49,13 +51,13 @@ function toggleTitleSectionIcon(el) {
     let arrow = el.querySelector("span");
     if (arrow.innerText == openSectionIcon) {
         arrow.innerText = closedSectionIcon;
-        /* this helps align the images */
+        /* this helps align the ▼ and ◄ better visually */
         arrow.style.position = "relative";
         arrow.style.left = "-2px";
         arrow.style.top = "-1px";
     } else {
         arrow.innerText = openSectionIcon;
-        /* this helps align the images */
+        /* this helps align the ▼ and ◄ better visually */
         arrow.style.position = "";
         arrow.style.left = "";
         arrow.style.top = "";
@@ -76,7 +78,7 @@ function hideAllSections() {
     setSectionDisplay("none");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = closedSectionIcon;
-        /* this helps align the images */
+        /* this helps align the ▼ and ◄ better visually */
         arrow.style.position = "relative";
         arrow.style.left = "-2px";
         arrow.style.top = "-1px";
@@ -87,7 +89,7 @@ function showAllSections() {
     setSectionDisplay("");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = openSectionIcon;
-        /* this helps align the images */
+        /* this helps align the ▼ and ◄ better visually */
         arrow.style.position = "";
         arrow.style.left = "";
         arrow.style.top = "";
@@ -110,4 +112,19 @@ function addShowAllButton() {
     btn.addEventListener("click", showAllSections);
     let fold = document.getElementById("foldables");
     fold.insertBefore(btn, fold.firstChild);
+}
+
+function openAllLastSections(execute = true) {
+    if (!execute) { return; }
+    let lastSectionTitle = Array.from(document.querySelectorAll(".title-wrapper")).pop();
+    let lastTitles = [];
+
+    while (lastSectionTitle.parentElement.nodeName == "SECTION") {
+        lastTitles.unshift(lastSectionTitle.parentElement.querySelector(".title-wrapper"));
+        lastSectionTitle = lastSectionTitle.parentElement;
+    }
+
+    lastTitles.map((title) => {
+        toggleHideSectionContent(title);
+    });
 }

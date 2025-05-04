@@ -109,13 +109,20 @@
                     <li><strong>Sticky footer</strong>: I guess if you're not using flexbox you can make sticky footers by changing the body from <code>height: 100vh;</code> to <code>min-height: 100vh;</code></li>
                     <li><a href="https://css-tricks.com/fun-viewport-units/#aa-fluid-aspect-ratios">This page</a> has a good tip on making fluid aspect ratios for videos.</li>
                     <li>(That last page also has code for a scroll indicator on it, which is cool.)</li>
-                    <li></li>
                 </ul>
             </section>
             <section>
                 <h3>More Text Styles</h3>
                 <ul>
-                    <li></li>
+                    <li>Useful font tip to avoid going through the whole font list every time you want to apply a font to an elements text:
+                        <code class="block">:root {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;--system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;<br>
+                            }<br>
+                            <br>
+                            .element {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;font-family: var(--system-ui);<br>
+                            }</code>
+                    </li>
                     <li></li>
                     <li></li>
                     <li></li>
