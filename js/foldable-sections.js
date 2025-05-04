@@ -4,9 +4,11 @@ const showAllBtnTxt = "Show All";
 const openSectionIcon = "▼";
 const closedSectionIcon = "◄";
 
+/* initial setup */
 wrapTitles();
 addHideAllButton();
 addShowAllButton();
+hideAllSections(); // hides everything on page open
 
 for (let title of document.querySelectorAll(".title-wrapper")) {
     title.addEventListener("click", (event) => {

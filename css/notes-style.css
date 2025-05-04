@@ -4,10 +4,15 @@
     width: 800px;
     padding: 1px;
     border-radius: 10px;
+    margin: 10px auto;
 }
 
 #foldables>h1 {
     text-align: center;
+}
+
+#foldables>p {
+    margin: 15px 6px;
 }
 
 .title-wrapper {
@@ -47,15 +52,15 @@ section>ul {
 /* colours */
 
 body {
-    background-color: grey;
+    background-color: #555;
 }
 
 #foldables {
-    background-color: #aaa;
+    background-color: #666;
 }
 
 section {
-    background-color: #999;
+    background-color: #777;
 }
 
 section>section {
@@ -63,11 +68,11 @@ section>section {
 }
 
 section>section>section {
-    background-color: #777;
+    background-color: #999;
 }
 
 section>section>section>section {
-    background-color: #666;
+    background-color: #aaa;
 }
 
 #show-all-btn, #hide-all-btn {
