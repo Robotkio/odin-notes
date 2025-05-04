@@ -76,6 +76,7 @@ section>section>section>section {
 }
 
 #show-all-btn, #hide-all-btn {
+    user-select: none;
     border-radius: 10px;
     margin: 10px;
     padding: 5px 10px;

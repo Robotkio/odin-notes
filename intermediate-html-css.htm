@@ -48,6 +48,7 @@
                     <li>SVGs can be used linked and inline</li>
                     <li>Good source of <a href="https://fonts.google.com/icons?icon.size=24&icon.color=%231f1f1f">SVG icons</a></li>
                     <li>Another good <a href="https://feathericons.com/">source of SVG icons</a></li>
+                    <li>I just realized SVG's could be used to make things like dynamic graphs. Now I see why they're so important.</li>
                 </ul>
             </section>
             <section>
@@ -64,7 +65,7 @@
                     <li><code>scope="col"</code> can be added for screen readers to know the scope of the table that the header applies to. also uses <code>"row", "colgroup", "rowgroup"</code> The "-group" tags can denote the, say, group of headings.</li>
                     <li>alternative to scope is <code>id, headers</code> "id" is used for noting what a header is, the "headers" tag is used to tell what headers a "td" is related to</li>
                     <li>for how to use <code>scope, id, headers</code> <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Table_accessibility">check out this tutorial</a></li>
-                    <li>Ohhh ... there's also a lot more things to know. I'm going to take further <a href="https://css-tricks.com/complete-guide-table-element/">notes from this link.</a></li>
+                    <li>Ohhh ... there's also a lot more things to know. I'm going to take further <a href="https://css-tricks.com/complete-guide-table-element/">notes from this variable.</a></li>
                     <li><code>thead, tbody, tfoot</code> <mark>tr is the child of these</mark> not td, th!</li>
                     <li>Key styling aspects: <code>border-spacing: 5px;</code>, <code>border-collapse: collapse</code>, <code>white-space: nowrap</code> can cause data to go outside the table</li>
                     <li>Tables act like a hybrid div/span: they only take up the space they need to like span but place later elements on a new line like div</li>
@@ -74,7 +75,7 @@
         </section>
         <section>
             <h2>Intermediate CSS Concepts</h2>
-            <p>Default Styles talks about CSS resets.</p>
+            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale).</p>
             <section>
                 <h3>Default Styles</h3>
                 <ul>
@@ -86,6 +87,33 @@
             </section>
             <section>
                 <h3>CSS Units</h3>
+                <ul>
+                    <li>Absolute units: px, in (inch), cm (centimeter). Of the absolutes, <mark>only use px</mark>.</li>
+                    <li>Relative units: em, rem. Both refer to font size, but you can scale more. Lean toward using "rem".</li>
+                    <li><code>1em</code> is the <code>font-size</code> of <mark>an</mark> element, or the elements parent if you're using it to set font-size. (ie. if you have something <code>font-size: 16px;</code>, settings its width to <code>4em</code> would make its width 64px. (16 * 4 == 64)</li>
+                    <li><code>1rem</code> is the <code>font-size</code> of the <mark>root element</mark> (either :root or html). It means you don't have to keep track of parent size.</li>
+                    <li>Viewport units: vh, vw. Refer to viewport height and width. <code>1vh</code> is equal to 1% of the viewport height.</li>
+                    <li>Also <code>vmin, vmax</code> for the viewport minimum and maximum. Can set an elements minimum and maximum size related to the viewport.</li>
+                    <li>Fun aside: "em" and "rem are like <code>width</code> with "%" and "vw". A percentage width is relative to its parent where a vw width is relative to the window size.</li>
+                    <li>Following notes from the <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Values_and_units">MDN page on CSS values and units</a>:</li>
+                    <li>CSS uses four numerical value types: integer (55), number (float, 5.5), dimension (has a unit, 55px) and percentage (55%, relative to another value).</li>
+                    <li><code>lh, rlh</code> line-height and relative-line-height. Not used to set the line height (that's the <code>line-height</code> property), but to relate the line height to something like a background.</li>
+                    <li>Percentages: mostly relative to the parent element</li>
+                    <li>Covers number values like HEX <code>#af4, #a6f244</code> RGB values (second with alpha)<code>rgb(255 3 96), rgb(12 12 12 / 0.5)</code></li>
+                    <li>There's also <code>hue</code> value type: <code>hwb(188 97% 28%), hsl(188 97% 28%)</code> where the first value is the hue and the second values are whiteness & blackness for hwb and saturation and lightness for hsl.</li>
+                    <li>There's also the <code>image</code> value type. That could be <code>url()</code> or something like <code>linear-gradient()</code></li>
+                    <li><code>postion</code> value type ueses: <code>top, left, bottom, right, center</code> which represent offsets from the top and left-hand edges of the box.</li>
+                    <li>CSS functions are anything with brackets after them. Also include <code>translate(), rotate(), scale()</code></li>
+                    <li><code>calc()</code> lets you do math. There are other math functions like <code>min(), max(), clamp(), sin(), cos(), tan()</code></li>
+                    <li>Can use things like <code>line-height: calc(1.1em + 0.5vw);</code> to not just adjust with viewport size, but to scale appropriately</li>
+                    <li><strong>Sticky footer</strong>: I guess if you're not using flexbox you can make sticky footers by changing the body from <code>height: 100vh;</code> to <code>min-height: 100vh;</code></li>
+                    <li><a href="https://css-tricks.com/fun-viewport-units/#aa-fluid-aspect-ratios">This page</a> has a good tip on making fluid aspect ratios for videos.</li>
+                    <li>(That last page also has code for a scroll indicator on it, which is cool.)</li>
+                    <li></li>
+                </ul>
+            </section>
+            <section>
+                <h3>More Text Styles</h3>
                 <ul>
                     <li></li>
                     <li></li>

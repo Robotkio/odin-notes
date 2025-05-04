@@ -49,11 +49,13 @@ function toggleTitleSectionIcon(el) {
     let arrow = el.querySelector("span");
     if (arrow.innerText == openSectionIcon) {
         arrow.innerText = closedSectionIcon;
+        /* this helps align the images */
         arrow.style.position = "relative";
         arrow.style.left = "-2px";
         arrow.style.top = "-1px";
     } else {
         arrow.innerText = openSectionIcon;
+        /* this helps align the images */
         arrow.style.position = "";
         arrow.style.left = "";
         arrow.style.top = "";
@@ -74,6 +76,7 @@ function hideAllSections() {
     setSectionDisplay("none");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = closedSectionIcon;
+        /* this helps align the images */
         arrow.style.position = "relative";
         arrow.style.left = "-2px";
         arrow.style.top = "-1px";
@@ -84,6 +87,7 @@ function showAllSections() {
     setSectionDisplay("");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = openSectionIcon;
+        /* this helps align the images */
         arrow.style.position = "";
         arrow.style.left = "";
         arrow.style.top = "";
