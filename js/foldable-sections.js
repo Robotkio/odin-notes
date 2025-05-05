@@ -6,11 +6,15 @@ const openSectionIcon = "▼";
 const closedSectionIcon = "◄";
 
 /* initial setup */
-wrapTitles();
+wrapSectionHeaders();
 addHideAllButton();
 addShowAllButton();
-hideAllSections(); // hides everything on page open
-openAllLastSections(); // opens the latest section of notes
+hideAllSections();
+/* This opens the lowest section of notes automatically on page 
+   load. I use this so I can start with everything but the most 
+   recent set of notes minimized. Either remove it or put 
+   "false" as an argument to stop it. */
+openFinalSection();
 
 for (let title of document.querySelectorAll(".title-wrapper")) {
     title.addEventListener("click", (event) => {
@@ -22,7 +26,7 @@ for (let title of document.querySelectorAll(".title-wrapper")) {
     });
 }
 
-function wrapTitles() {
+function wrapSectionHeaders() {
     let sectionTitles = document.querySelectorAll("section>h2,section>h3,section>h4");
     for (let title of sectionTitles) {
         let wrap = document.createElement("div");
@@ -114,17 +118,13 @@ function addShowAllButton() {
     fold.insertBefore(btn, fold.firstChild);
 }
 
-function openAllLastSections(execute = true) {
+function openFinalSection(execute = true) {
     if (!execute) { return; }
+    // find last section title
     let lastSectionTitle = Array.from(document.querySelectorAll(".title-wrapper")).pop();
-    let lastTitles = [];
-
+    // show last section and each of its parents
     while (lastSectionTitle.parentElement.nodeName == "SECTION") {
-        lastTitles.unshift(lastSectionTitle.parentElement.querySelector(".title-wrapper"));
+        toggleHideSectionContent(lastSectionTitle.parentElement.querySelector(".title-wrapper"));
         lastSectionTitle = lastSectionTitle.parentElement;
     }
-
-    lastTitles.map((title) => {
-        toggleHideSectionContent(title);
-    });
 }

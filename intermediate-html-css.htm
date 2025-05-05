@@ -75,7 +75,7 @@
         </section>
         <section>
             <h2>Intermediate CSS Concepts</h2>
-            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale).</p>
+            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale). More Text Styles covers font usage and importing as well as other ways to manipulate how it's displayed.</p>
             <section>
                 <h3>Default Styles</h3>
                 <ul>
@@ -123,15 +123,37 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;font-family: var(--system-ui);<br>
                             }</code>
                     </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>Use fallback fonts rather than imported fonts as a general rule, but it's not a hard rule.</li>
+                    <li>There are a few different ways to import a font:
+                        <code class="block">
+                            &lt;link rel="preconnect" href="https://fonts.googleapis.com"><br>
+                            &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><br>
+                            &lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"><br>
+                            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+                        </code>
+                    </li>
+                    <li><mark>Note</mark>: there's <a href="https://thehackernews.com/2022/01/german-court-rules-websites-embedding.html">an article</a> that reads, "German Court Rules Websites Embedding Google Fonts Violates GDPR"</li>
+                    <li>If you download and host your own fonts, use this:
+                        <code class="block">@font-face {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;font-family: my-cool-font;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;src: url(../fonts/the-font-file.woff);<br>
+                            }<br>
+                            h1 {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;font-family: my-cool-font, sans-serif;<br>
+                            }<br></code>
+                    </li>
+                    <li>Make things <code>font-style: italic;</code> in CSS if you want it italic for visual sake. Save using <code>em</code> for when there's semantic emphasis. I assume the same thing for <code>strong</code>.</li>
+                    <li>Also: <code>letter-spacing</code> what it says, <code>line-height</code> same, <code>text-transform</code> has great things like <code>capitalize, uppercase, lowercase</code> Example, EXAMPLE, example. See more <a href="http://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">here</a></li>
+                    <li><code>text-shadow</code> for funsies</li>
+                    <li>Overflowing text can be controlled with some settings like ...
+                        <code class="block">
+                            .overflowing {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;white-space: nowrap;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;overflow: hidden;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;text-overflow: ellipsis;<br>
+                            }
+                        </code>
+                    </li>
                 </ul>
             </section>
         </section>

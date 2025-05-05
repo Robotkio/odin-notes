@@ -1,7 +1,7 @@
 /* layout */
 
 #foldables {
-    width: 800px;
+    max-width: 800px;
     padding: 1px;
     border-radius: 10px;
     margin: 10px auto;
@@ -49,7 +49,14 @@ section>ul {
     margin-left: 5px;
 }
 
-/* colours */
+#show-all-btn, #hide-all-btn, #open-recent-btn {
+    user-select: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+/* appearance */
 
 body {
     background-color: #555;
@@ -76,10 +83,6 @@ section>section>section>section {
 }
 
 #show-all-btn, #hide-all-btn, #open-recent-btn {
-    user-select: none;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 5px 10px;
     border: 1px solid black;
     background: none;
 }
