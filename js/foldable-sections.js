@@ -68,11 +68,6 @@ function wrapSectionHeaders() {
         wrap.style.alignContent = "center";
         wrap.style.justifyContent = "space-between";
 
-        /*
-    display: flex;
-    align-content: center;
-    justify-content: space-between;*/
-
         let arrow = document.createElement("span");
         arrow.classList.add("title-arrow");
         arrow.style.userSelect = "none";
