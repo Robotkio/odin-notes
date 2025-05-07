@@ -1,12 +1,14 @@
 
 const hideAllBtnTxt = "Hide All";
 const showAllBtnTxt = "Show All";
-const openRecentBtnTxt = "Open Recent";
+const openRecentBtnTxt = "Recent Only";
 const openSectionIcon = "▼";
 const closedSectionIcon = "◄";
 
 /* initial setup */
+giveSectionHeadersIDs();
 wrapSectionHeaders();
+addRecentButton();
 addHideAllButton();
 addShowAllButton();
 hideAllSections();
@@ -16,6 +18,7 @@ hideAllSections();
    "false" as an argument to stop it. */
 openFinalSection();
 
+/* add eventListener to show/hide on each title */
 for (let title of document.querySelectorAll(".title-wrapper")) {
     title.addEventListener("click", (event) => {
         let element = event.target;
@@ -24,6 +27,37 @@ for (let title of document.querySelectorAll(".title-wrapper")) {
         }
         toggleHideSectionContent(element);
     });
+}
+
+function giveSectionHeadersIDs() {
+    let sectionTitles = document.querySelectorAll("section h2,section h3,section h4,section h5");
+    let usedIDs = [];
+    for (let title of sectionTitles) {
+        let id = title.innerText.trim().toLowerCase().replaceAll(" ", "-");
+        while (usedIDs.includes(id)) {
+            id += Math.floor(Math.random() * 10);
+        }
+        title.setAttribute("id", id);
+        usedIDs.push(id);
+    }
+}
+
+function makeHeaderLinksFromIDs() {
+    let sectionTitles = document.querySelectorAll("section h2,section h3,section h4,section h5");
+    let ul = document.createElement("ul");
+    ul.setAttribute("id", "foldables-navigation");
+
+    sectionTitles.forEach((el) => {
+        let li = document.createElement("li");
+        let a = document.createElement("a");
+        a.setAttribute("href", `#${el.getAttribute("id")}`);
+        a.innerText = el.innerText;
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+
+    let fold = document.getElementById("foldables");
+    fold.insertBefore(ul, fold.firstChild);
 }
 
 function wrapSectionHeaders() {
@@ -114,6 +148,18 @@ function addShowAllButton() {
     btn.setAttribute("id", "show-all-btn");
     btn.innerText = showAllBtnTxt;
     btn.addEventListener("click", showAllSections);
+    let fold = document.getElementById("foldables");
+    fold.insertBefore(btn, fold.firstChild);
+}
+
+function addRecentButton() {
+    let btn = document.createElement("button");
+    btn.setAttribute("id", "recent-btn");
+    btn.innerText = openRecentBtnTxt;
+    btn.addEventListener("click", () => {
+        hideAllSections();
+        openFinalSection();
+    });
     let fold = document.getElementById("foldables");
     fold.insertBefore(btn, fold.firstChild);
 }

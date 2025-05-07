@@ -49,7 +49,7 @@ section>ul {
     margin-left: 5px;
 }
 
-#show-all-btn, #hide-all-btn, #open-recent-btn {
+#show-all-btn, #hide-all-btn, #recent-btn {
     user-select: none;
     border-radius: 10px;
     margin: 10px;
@@ -82,7 +82,7 @@ section>section>section>section {
     background-color: #aaa;
 }
 
-#show-all-btn, #hide-all-btn, #open-recent-btn {
+#show-all-btn, #hide-all-btn, #recent-btn {
     border: 1px solid black;
     background: none;
 }

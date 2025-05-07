@@ -75,7 +75,7 @@
         </section>
         <section>
             <h2>Intermediate CSS Concepts</h2>
-            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale). More Text Styles covers font usage and importing as well as other ways to manipulate how it's displayed.</p>
+            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale). More Text Styles covers font usage and importing as well as other ways to manipulate how it's displayed. It also has some bits on performance. More CSS Properties covers the core set of, like, six properties that get used a lot.</p>
             <section>
                 <h3>Default Styles</h3>
                 <ul>
@@ -124,7 +124,7 @@
                             }</code>
                     </li>
                     <li>Use fallback fonts rather than imported fonts as a general rule, but it's not a hard rule.</li>
-                    <li>There are a few different ways to import a font:
+                    <li>There are a few different ways to import a font. You can link it in the HTML (as below) or @import it in the CSS (further below).
                         <code class="block">
                             &lt;link rel="preconnect" href="https://fonts.googleapis.com"><br>
                             &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><br>
@@ -153,6 +153,74 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;text-overflow: ellipsis;<br>
                             }
                         </code>
+                    </li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Fundamentals#web_safe_fonts">Link</a> on websafe fonts here.</li>
+                    <li><mark>There's <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts">a tutorial I'm supposed to follow here</a> but when I download the file from Font Squirrel there is no woff/woff2 file.</mark></li>
+                    <li>Fonts impact UX because the page will often not load until the font is downloaded.</li>
+                    <li>If a font is defined but unused it will not be loaded. (Can <code>rel="preload"</code> in a <code>link</code> tag to force it to load)</li>
+                    <li>It's suggested to load fonts in a <code>style</code> tag in the <code>head</code> to allow it to discover fonts before the CSS has to load.</li>
+                    <li>Wow, there's even stuff about using something like the following code to pre-connect to a fot website to save time. <code>&lt;link rel="preconnect" href="https://fonts.com" crossorigin></code></li>
+                    <li>Using self-hosted fonts is, typically, better.</li>
+                    <li>WOFF2 has widespread support and offers best compression. Use it unless you can't.</li>
+                    <li>Consider fonts without extra glyphs or using something like the <code>unicode-range: U+0000-00FF</code> in the <code>@font-face</code> declaration. The page will only download the font if it uses characters in that range.</li>
+                    <li>Chromium browsers block rendering text for up to 3 seconds while waiting for a font. Can use <code>font-display: auto|block|swap|fallback|optional</code> to adjust this.</li>
+                    <li>Something like <code>font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem)</code> is great for keeping fonts adjustable to screen size while also setting a minimum and maximum.</li>
+                    <li><mark>There's a UX quote</mark>, "Anything from 45 to 75 characters is widely regarded as a satisfactory line length for a single-column page set in a serifed text face in a text size. The 66-character line (counting both letters and spaces) is widely regarded as ideal. For multiple column work, a better average is 40 to 50 characters."<br>We can set <code>max-inline-size: 66ch</code> property (ch being characters).</li>
+                    <li>Honestly, <a href="https://web.dev/learn/design/typography">this article</a> goes into good detail.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>More CSS Properties</h3>
+                <ul>
+                    <li><code>background</code> can have a lot of properties, images, clip, color, origin, position, repeat, size.</li>
+                    <li><code>border</code> width, style, colour</li>
+                    <li><code>border-radius</code> can do weird things, try <code>border-radius: 10% / 50%;</code> (you can use 100% to make a circle, I think)</li>
+                    <li><code>box-shadow: 0px 0px 0px 0px inset red</code> (offset-x, offset-y, blur-radius, spread-radius, inset, colour</li>
+                    <li><code>overflow</code> visible (flows out), hidden (cut off), clip*, scroll (add scroll bars), auto (basically adds relevant scrolls)</li>
+                    <li>clip* from overflow is weird, it comes along with <code>overflow-clip-margin</code> and <code>flow-root</code>, neither of which I really know what it means.</li>
+                    <li><code>opacity</code> self explanitory</li>
+                    <li>For all of these just check mozilla.org docs</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Advanced Selectors</h3>
+                <ul>
+                    <li><code>main div { }</code> selects all the divs inside main</li>
+                    <li><code>main > div { }</code> selects only the direct decendent divs of main</li>
+                    <li><code>.group1 + div + div { }</code> will select only the second div after each .group1 element</li>
+                    <li><code>.group1 ~ div { }</code> will select all sibling div to the .group1 element</li>
+                </ul>
+                <p>Pseudo-classes</p>
+                <ul>
+                    <li><code>:focus</code> (when selected) <code>:hover</code> (when under a mouse) <code>:active</code> (currently being clicked)</li>
+                    <li><code>:link</code> and <code>:visited</code> for links</li>
+                    <li><code>:root</code> is kind of like applying things to the &lt;HTML> tag, for global rules like making everything on the page <code>box-sizing: border-box;</code></li>
+                    <li><code>:first-child, :last-child</code> what it says</li>
+                    <li><code>:empty</code> is elements with NO children</li>
+                    <li><code>:only-child</code> is elements with NO siblings</li>
+                    <li><code>:nth-child()</code> picks specific children
+                    <code class="block">.item:nth-child(3) /* selects the 3rd element */<br>
+                        .item:nth-child(5n) /* selects every 5th element */<br>
+                        .item:nth-child(5n + 3) /* selects every 5th element starting with the 3rd element*/<br>
+                        .item:nth-child(even) /* every even element */</code></li>
+                </ul>
+                <p>Pseudo-elements</p>
+                <ul>
+                    <li><code>::marker</code> customizes li elements</li>
+                    <li><code>::first-letter, ::first-line</code> as on the box</li>
+                    <li><code>::selection</code> change the highlighing when someone selects text!</li>
+                    <li><code>::before, ::after</code> add extra elements to things on the page with, say, <code>content:</code></li>
+                    <li>There are more things <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">on the mozilla site</a>.</li>
+                </ul>
+                <p>Attribute selectors</p>
+                <ul>
+                    <li><code class="block">[src] { } /* target any element with an src */<br>
+                        img[src] { } /* any img element with an src */<br>
+                        img[src="cat.jpg"] { } /* any img with an src exactly like "cat.jpg" */</code></li>
+                    <li>You can use regex like selectors to be more fuzzy <code>^=</code> match strings from start <code>$=</code> match strings from end <code>*=</code> match strings anywhere:
+                        <code class="block">[class^='aus'] /* any class that begins with "aus" */<br>
+                            [src$='.jpg'] /* any class that ends with ".jpg" */<br>
+                            [for*='ill'] /* for="bill", for="silly", for="ill"</code>
                     </li>
                 </ul>
             </section>
