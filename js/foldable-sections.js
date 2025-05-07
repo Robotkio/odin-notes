@@ -12,11 +12,7 @@ addRecentButton();
 addHideAllButton();
 addShowAllButton();
 hideAllSections();
-/* This opens the lowest section of notes automatically on page 
-   load. I use this so I can start with everything but the most 
-   recent set of notes minimized. Either remove it or put 
-   "false" as an argument to stop it. */
-openFinalSection();
+openFinalSection(); // pass "false" argument to disable
 
 /* add eventListener to show/hide on each title */
 for (let title of document.querySelectorAll(".title-wrapper")) {
@@ -28,6 +24,8 @@ for (let title of document.querySelectorAll(".title-wrapper")) {
         toggleHideSectionContent(element);
     });
 }
+
+/* functions below */
 
 function giveSectionHeadersIDs() {
     let sectionTitles = document.querySelectorAll("section h2,section h3,section h4,section h5");
@@ -65,9 +63,19 @@ function wrapSectionHeaders() {
     for (let title of sectionTitles) {
         let wrap = document.createElement("div");
         wrap.classList.add("title-wrapper");
+        wrap.style.cursor = "pointer";
+        wrap.style.display = "flex";
+        wrap.style.alignContent = "center";
+        wrap.style.justifyContent = "space-between";
+
+        /*
+    display: flex;
+    align-content: center;
+    justify-content: space-between;*/
 
         let arrow = document.createElement("span");
         arrow.classList.add("title-arrow");
+        arrow.style.userSelect = "none";
         arrow.innerText = openSectionIcon;
 
         title.parentNode.insertBefore(wrap, title);
