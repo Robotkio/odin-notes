@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intermediate HTML and CSS Course - Odin Notes</title>
-    <zlink rel="stylesheet" href="css/style.css">
-    <zlink rel="stylesheet" href="css/notes-style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notes-style.css">
     <script src="js/foldable-sections.js" defer></script>
 </head>
 
@@ -75,7 +75,7 @@
         </section>
         <section>
             <h2>Intermediate CSS Concepts</h2>
-            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale). More Text Styles covers font usage and importing as well as other ways to manipulate how it's displayed. It also has some bits on performance. More CSS Properties covers the core set of, like, six properties that get used a lot.</p>
+            <p>Default Styles talks about CSS resets. CSS Units goes deep on a lot of different values that you can use to control attributes (especially scale). More Text Styles covers font usage and importing as well as other ways to manipulate how it's displayed. It also has some bits on performance. More CSS Properties covers the core set of, like, six properties that get used a lot. Advanced Selectors covers a lot of selectors, pseudo-classes and pseudo-elements. Positioning covers things like relative and sticky positioning. CSS Functions covers just that (mostly to do with math). Custom Properties covers CSS variables and some information about their inhertiance and usage. Browser Compatibility is "check this website" and "iOS only uses WebKit". Frameworks and Preprocessors just contextualizes their existance.</p>
             <section>
                 <h3>Default Styles</h3>
                 <ul>
@@ -188,9 +188,10 @@
                     <li><code>main div { }</code> selects all the divs inside main</li>
                     <li><code>main > div { }</code> selects only the direct decendent divs of main</li>
                     <li><code>.group1 + div + div { }</code> will select only the second div after each .group1 element</li>
-                    <li><code>.group1 ~ div { }</code> will select all sibling div to the .group1 element</li>
+                    <li><code>.group1 ~ div { }</code> will select all sibling div elements that come after the .group1 element</li>
+                    <li><code>p + p { }</code> will select every p with a p before it! (good for adding margins to the top of each p that isn't the first)</li>
                 </ul>
-                <p>Pseudo-classes</p>
+                <p>Pseudo-classes: target things that normally exist in HTML</p>
                 <ul>
                     <li><code>:focus</code> (when selected) <code>:hover</code> (when under a mouse) <code>:active</code> (currently being clicked)</li>
                     <li><code>:link</code> and <code>:visited</code> for links</li>
@@ -198,13 +199,19 @@
                     <li><code>:first-child, :last-child</code> what it says</li>
                     <li><code>:empty</code> is elements with NO children</li>
                     <li><code>:only-child</code> is elements with NO siblings</li>
-                    <li><code>:nth-child()</code> picks specific children
+                    <li><code>:nth-child(), :nth-last-child()</code> picks specific children
                     <code class="block">.item:nth-child(3) /* selects the 3rd element */<br>
                         .item:nth-child(5n) /* selects every 5th element */<br>
                         .item:nth-child(5n + 3) /* selects every 5th element starting with the 3rd element*/<br>
-                        .item:nth-child(even) /* every even element */</code></li>
+                        .item:nth-child(even) /* every even element */</code>
+                    (same thing for nth-last-child() )</li>
+                    <li><code>:enabled, :disabled, :checked, :indeterminate</code> are kind of for forms/buttons to see if the element is enabled, disabled or kind of "yet to be checked" (indeterminate).</li>
+                    <li><code>:first-of-type, :last-of-type, :only-of-type</code> self explanitory</li>
+                    <li><code>:nth-of-type(), :nth-last-of-type()</code> self explanitory</li>
+                    <li><code>:target</code> is used to select things that have been the target of a link. Things like <code>href="website.com/page#header"</code> the #header is the target</li>
+                    <li><code>:not()</code> can be used on its own or not <code>div:not(.class), :not(div)</code></li>
                 </ul>
-                <p>Pseudo-elements</p>
+                <p>Pseudo-elements: target elements that don't normally exist in the markup</p>
                 <ul>
                     <li><code>::marker</code> customizes li elements</li>
                     <li><code>::first-letter, ::first-line</code> as on the box</li>
@@ -217,11 +224,200 @@
                     <li><code class="block">[src] { } /* target any element with an src */<br>
                         img[src] { } /* any img element with an src */<br>
                         img[src="cat.jpg"] { } /* any img with an src exactly like "cat.jpg" */</code></li>
-                    <li>You can use regex like selectors to be more fuzzy <code>^=</code> match strings from start <code>$=</code> match strings from end <code>*=</code> match strings anywhere:
+                    <li>You can use regex like selectors to be more fuzzy <code>^=</code> match strings from start <code>$=</code> match strings from end <code>*=</code> match strings anywhere <code>~=</code> selects matching that is space delimited <code>|=</code> is like ~= except dash delimited (-):
                         <code class="block">[class^='aus'] /* any class that begins with "aus" */<br>
                             [src$='.jpg'] /* any class that ends with ".jpg" */<br>
-                            [for*='ill'] /* for="bill", for="silly", for="ill"</code>
+                            [for*='ill'] /* for="bill", for="silly", for="ill" */<br>
+                            [rel~='tag'] /* rel="tag nofollow" */</code>
                     </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Positioning</h3>
+                <ul>
+                    <li><code>position: static, relative, absolute, fixed, sticky</code> changes how an element is anchored on the page</li>
+                    <li><code>top:, right:, bottom:, left:</code> are set to move an element around</li>
+                    <li><code>static</code> is the default styling, it places itself relative to its surrounding elements and settings like top, right, etc... don't affect it.</li>
+                    <li><code>relative</code> is like static except top, right, etc... do affect it.</li>
+                    <li><code>absolute</code> position is removed from regular flow but will be placed relative to its parent element until something like top, right, etc... is applied, then it's relative to the viewport OR <mark>if the parent element if that elment is not position:static</mark>. (good for captions over images, icons over elements, modals)</li>
+                    <li><code>fixed</code> is removed from regular flow and is only relative to the viewport, stays where it is on the screen regardless of scroll</li>
+                    <li><code>sticky</code> acts like static until you scroll past them, then they act like fixed elements</li>
+                    <li>Fun tip: fixed and sticky cause the element to be re-rendered on scroll. This can cause performance issues. <code>will-change: transform</code> to the positioned element to render it in its own layer so it isn't constantly redrawn</li>
+                    <li>Note: it seems like sticky elements can push each other off the screen. This can be used to keep the title of a section on screen until the next sections title bumps it off. See example <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#examples">on this page</a>.</li>
+                    <li>That link also has some weird, fancy stuff with sticky and a lightbulb example. (The sticky elements stay within a box but will attach/detach from their position in the paragraph)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>CSS Functions</h3>
+                <ul>
+                    <li>Anything in css with a () after it is a function. <code>calc(), min(), max(), clamp()</code> are useful.</li>
+                    <li><code>rgb(0, 255, 75)</code> or <code>linear-gradient(90deg, blue, red)</code> are examples.</li>
+                    <li><code>calc()</code> is useful because it lets you mix units</li>
+                    <li><code>min(150px, 100%)</code> takes the smaller of the two values dynamically</li>
+                    <li><code>max()</code> does the opposite</li>
+                    <li><code>clamp(320px, 80vw, 60rem)</code> I don't quite get clamp, yet, but it basically takes the smallest, ideal and largest values.</li>
+                    <li>Complete list of CSS functions is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Values_and_Units/CSS_Value_Functions">at this link</a>. I'm going to pull out some interesting ones:</li>
+                    <li><code>translate(), rotate(), scale(), skew()</code> for dealing in both 2D and 3D, likewise <code>matrix()</code> for doing a bunch of the aformentioned in one function and <code>perspective()</code> for very 3D things</li>
+                    <li>Similar to calc() is <code>calc-size()</code> for dealing with intrinsic sizes like auto, fit-content and max-content that calc() doesn't deal with</li>
+                    <li><code>round()</code> rounds a number, check docs <code>mod</code> modulus (with same sign as divisor) <code>rem()</code> remainder, with same sign as dividend</li>
+                    <li><code>sign(), cos(), tan(), asin(), acos(), atan(), atan2()</code> angle stuff</li>
+                    <li><code>pow(), sqrt(), hypot(), log(), exp()</code>power, square-root, hypotenuse, logarithm, exponent? (e raised to a power)</li>
+                    <li><code>abs(), sign()</code> absolute, calculates sign (positive, negative)</li>
+                    <li>I'm typing out too many of these. There are filter functions like <code>blur(), brightness(), opacity()</code>, common photoshop stuff</li>
+                    <li>Colour functions like <code>rgb(), hsl(), lab()</code> and weirders stuff like <code>color-mix()</code> that mixes colours</li>
+                    <li>Image functions apply different gradients <code>linear-gradient(), radial-gradient()</code> etc. and stuff like <code>image(), image-set(), cross-fade(), element(), paint()</code> just look them up, they're weird sounding</li>
+                    <li>Something called counter functions? <code>counter(), counters(), symbols()</code></li>
+                    <li>Shape functions that make ... shapes?</li>
+                    <li>"Reference functions are used as a value of properties to reference a value defined elsewhere."</li>
+                    <li>Grid and font functions. Easing functions like <code>linear()</code> that interpolates linearly between its points. Also <code>steps(), cubic-bezier()</code></li>
+                    <li>Animation functions like <code>scroll(), view()</code></li>
+                    <li>Anchor position functions <code>anchor(), anchor-size()</code></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Custom Properties</h3>
+                <ul>
+                    <li>Set and use a CSS variable like so:
+                        <code class="block">--modal-border: 1px solid black;<br>
+                        [...]<br>
+                        border: var(--modal-border, 1px solid);</code>
+                    </li>
+                    <li><code>var()</code> excepts a second parameter as a backup value if the first doesn't work.</li>
+                    <li>Scope is a concern. Declare in <code>:root { }</code> to ensure global scope.</li>
+                    <li>The example on their page does an interesting thing:
+                        <code class="block">:root.dark {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;--color-basebg: rgb(18, 18, 18);<br>
+                        }<br>
+                        root.light {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;--color-base-bg: rgb(240, 240, 240);<br>
+                        }<br>
+                        body {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;background-color: var(--color-base-bg);<br>
+                        }
+                        </code>
+                        Then it has some JS swap classes between elements like the background. Variable stays the same, class changes the context of the scope of that variable.
+                    </li>
+                    <li>Can use <code>@media (prefers-color-scheme: dark) { :root { --dark-variable: black; } }</code> to query the users browser setting. There is only "light" and "dark" and light is used if nothing is set.</li>
+                    <li>If you re-define a custom property inside of a new element, that property is changed for all of its children, too.</li>
+                    <li>You can disable custom property inheritance:
+                        <code class="block">@property --color-base-bg {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;syntax: "&lt;color>";<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;inherits: false;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;initial-value: rgb(18, 18, 18);<br>
+                        }
+                        </code>
+                        So in this case, if a parent re-defines <code>--color-base-bg</code> then the children won't be affected by it.
+                    </li>
+                    <li>If you set the initial-value in the @property then you can kind of use that as the fallback.</li>
+                    <li>Normally if you mess up something then CSS will fallback to the last legal value of something. However take this code as an example:
+                        <code class="block">:root {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;--text-color: 16px;<br>
+                        }<br>
+                        p {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;color: blue;<br>
+                        }<br>
+                        p {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;color: var(--text-color);<br>
+                        }
+                        </code>
+                        In this case the words in p-tags will be black. It will not fall back to blue because CSS will thing that a var will be a valid value. (Using the @property and initial-value: will help avoid this)
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Browser Compatibility</h3>
+                <ul>
+                    <li>There's <a href="https://caniuse.com/webp">a website, caniuse.com</a>, that lets you check if you can use a certain feature with a certain browser.</li>
+                    <li><mark>iOS and iPadOS exclusively use WebKit/Safari</mark></li>
+                    <li>When emulating other devices in Chrome all you're doing is changing screen size, not rendering engine.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Frameworks and Preprocessors</h3>
+                <ul>
+                    <li>Used in the workplace to speed up CSS development.</li>
+                    <li>Some listed frameworks are Boostrap, Tailwind, Bulma, and Foundation.</li>
+                    <li>Odin is not going deep on frameworks because it's better to know fundamentals.</li>
+                    <li>Preprocessors kind of compile a slightly different version of CSS into CSS to make it easier to do some things.</li>
+                    <li>Some preprocessors are SASS, LESS and Stylus.</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Forms</h2>
+            <p>Form Basics covers a lot of ground because forms are both very important and hard to style.</p>
+            <section>
+                <h3>Form Basics</h3>
+                <ul>
+                    <li>The form tag should always wrap a form. It dictates what to do with the data in the "action" attribute and what type of request method with the "method" attribute.
+                        <code class="block">&lt;form action="example.com/path" method="post"><br>
+                            &lt;/form></code>
+                    </li>
+                    <li><code>&lt;input type="text"></code> The input element is the most versatile and the type attribute tells the browser what type of data is in it and how to render the input.</li>
+                    <li><code class="block">&lt;label for="first_name">First Name:&lt;/label><br>
+                        &lt;input type="text" id="first_name">
+                    </code>
+                    The label element contextualizes an input and should be linked to that elements "id" attribute with the labels "for" attribute.</li>
+                    <li><mark>Note</mark>: label elements are clickable by default and will focus on their related form element!</li>
+                    <li><code>placeholder="Bob"</code> could go in an input to give it example input</li>
+                    <li>Inputs should always have a <code>name=""</code> attribute. While the "id" attribute identifies the element on the page and for CSS the "name" attribute identifies the data within the input when it's sent somewhere.</li>
+                    <li>Form elements don't need to be in a form if they're not communicating with a server.</li>
+                    <li>Some different types:
+                        <code class="block">type="email" // will display a keyboard with an @ on mobile devices <br>
+                        type="password" // will hide what is displayed behind *'s or something <br>
+                        type="number" // will only take number inputs and ignore the rest <br>
+                        type="date" // will render a date picker calendar</code>
+                    </li>
+                    <li><code>&lt;'textarea rows="20" cols="60">Initial content&lt;textarea></code> isn't an input but creates a box for inputting data.</li>
+                    <li>Take the creation of a dropdown menu:
+                        <code class="block">&lt;select name="Car"><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;optgroup label="Gas"><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="mercedes">Mercedes&lt;/option><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/opgroup><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;opgroup label="Electric"><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="tesla" selected>Tesla&lt;/option><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/opgroup><br>
+                    &lt;select></code>
+                    It's a select tag. You can optionally group things within the list with optgroup tags. Option tags dictate the option text and the values they will submit with the form. You can also designate a default selected option with the selected attribute.</li>
+                    <li>When there are five or fewer options to chose from it's often better to display them with radio buttons:
+                        <code class="block">&lt;input type="radio" id="child" name="ticket_type" value="child"><br>
+                            &lt;label for="child">Child&lt;/label><br>
+                            &lt;input type="radio" id="adult" name="ticket_type" value="adult" checked><br>
+                            &lt;label for="adult">Adult&lt;/label></code>
+                        A user can only check one radio button within the same "name" attribute. You can use the "checked" attribute to start one of the options checked off.
+                    </li>
+                    <li>Checkboxes are pretty much idential to radio buttons except the type needs to be "checkbox" you can select more than one.</li>
+                    <li>Check boxes can also be used individually for, say, a yes/no question like "sign up to recieve emails".</li>
+                    <li><mark>Note:</mark> in the code example of radio button the Odin Project version had div tags wrapping each input/label pair. I removed that for brevity of example but I think that's probably a "best practice" sort of thing. An <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form">MDN tutorial</a> wraps pairs in p tags.</li>
+                    <li><code>&lt;button></code> elements have three form specific types: "submit", "reset" and "button". By default a submit button will attempt to send the form data to the location in the action attribute of the form tag. The reset button will clear all elements to their default state.</li>
+                    <li>A button without a type specified is, by default considered a "submit" button. <mark>If you don't want a button to default to this behaviour you need to set it to type="button"</mark> that does nothing.</li>
+                    <li>You can use the <code>&lt;fieldset></code> element to group things. (Kind of like a wrapping div)</li>
+                    <li>A <code>&lt;legend></code> tag <mark>should come right after</mark> a fieldset to denote what that set of fields is.</li>
+                    <li>There's <a href="https://moderncss.dev/pure-css-custom-checkbox-style/">a good article here</a> on how to style checkboxes (because it's not that simple).</li>
+                    <li>Can use <code>accent-color:</code> style to colour a checkbox</li>
+                    <li>Taking a look at <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms#introductory_guides">the MDN</a>, there also <code>output, meter, progress</code> tags.</li>
+                    <li><mark>Don't nest a form inside a form</mark></li>
+                    <li>Because forms use <code>input</code> for almost everything, it makes it harder to style. Use <code>.form-class-name input[type="email"] { }</code> or something similar to diferentiate.</li>
+                    <li>You also have to remember to style <code>:valid, :invalid, :disabled</code> pseudo-classes</li>
+                    <li><code>&lt;fieldset></code> apparently doesn't support flexbox, but you can apparently kind of get away with similar functionality by using <code>float: left;</code> on elements that you want to be beside one-another and <code>display: block;</code> on elements you want to be on its own row (like the label)</li>
+                    <li>Keep CSS for <code>&lt;select></code> elements sparse because different browsers display it in very functionally different ways.</li>
+                    <li>You can disable textarea resizing with <code>resize: none</code>.</li>
+                    <li>I've now seen it's totally legal to wrap a form element like a checkbox inside of its label element to keep them together.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Form Validation</h3>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
                 </ul>
             </section>
         </section>
