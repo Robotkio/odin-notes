@@ -3,7 +3,7 @@ const hideAllBtnTxt = "Hide All";
 const showAllBtnTxt = "Show All";
 const openRecentBtnTxt = "Recent Only";
 const openSectionIcon = "▼";
-const closedSectionIcon = "◄";
+const closedSectionIcon = "►"; // ◄
 
 /* initial setup */
 giveSectionHeadersIDs();
@@ -66,7 +66,7 @@ function wrapSectionHeaders() {
         wrap.style.cursor = "pointer";
         wrap.style.display = "flex";
         wrap.style.alignContent = "center";
-        wrap.style.justifyContent = "space-between";
+        wrap.style.justifyContent = "flex-start";
 
         let arrow = document.createElement("span");
         arrow.classList.add("title-arrow");
@@ -74,8 +74,8 @@ function wrapSectionHeaders() {
         arrow.innerText = openSectionIcon;
 
         title.parentNode.insertBefore(wrap, title);
-        wrap.appendChild(title);
         wrap.appendChild(arrow);
+        wrap.appendChild(title);
     }
 }
 
@@ -92,16 +92,8 @@ function toggleTitleSectionIcon(el) {
     let arrow = el.querySelector("span");
     if (arrow.innerText == openSectionIcon) {
         arrow.innerText = closedSectionIcon;
-        /* this helps align the ▼ and ◄ better visually */
-        arrow.style.position = "relative";
-        arrow.style.left = "-2px";
-        arrow.style.top = "-1px";
     } else {
         arrow.innerText = openSectionIcon;
-        /* this helps align the ▼ and ◄ better visually */
-        arrow.style.position = "";
-        arrow.style.left = "";
-        arrow.style.top = "";
     }
 }
 
@@ -119,10 +111,6 @@ function hideAllSections() {
     setSectionDisplay("none");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = closedSectionIcon;
-        /* this helps align the ▼ and ◄ better visually */
-        arrow.style.position = "relative";
-        arrow.style.left = "-2px";
-        arrow.style.top = "-1px";
     });
 }
 
@@ -130,10 +118,6 @@ function showAllSections() {
     setSectionDisplay("");
     Array.from(document.querySelectorAll(".title-arrow")).map((arrow) => {
         arrow.innerText = openSectionIcon;
-        /* this helps align the ▼ and ◄ better visually */
-        arrow.style.position = "";
-        arrow.style.left = "";
-        arrow.style.top = "";
     });
 }
 
