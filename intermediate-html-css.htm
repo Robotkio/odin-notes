@@ -345,7 +345,7 @@
         </section>
         <section>
             <h2>Forms</h2>
-            <p>Form Basics covers a lot of ground because forms are both very important and hard to style.</p>
+            <p>Form Basics covers a lot of ground because forms are both very important and hard to style. Form Validation covers basic, client-side, HTML validation options. (Also some basic UX/UI stuff)</p>
             <section>
                 <h3>Form Basics</h3>
                 <ul>
@@ -407,6 +407,37 @@
             </section>
             <section>
                 <h3>Form Validation</h3>
+                <ul>
+                    <li><code>required</code> on an input will do just that (usability guidelines suggest andding a * to denote which fields are required)</li>
+                    <li><code>minlenth="3"</code> and <code>maxlength="20"</code> are the valid number of characters</li>
+                    <li>input type=""'s: <code>date, month, week, time, datetime-local, number, range</code> see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/max#syntax">MDN docs</a> can take <code>min="", max=""</code></li>
+                    <li><code>pattern=""</code> takes regex, it's useful to use placeholder="" to give an example sometimes</li>
+                    <li>You can automatically style valid and invalid form entries with CSS pseudo-classes <code>:invalid, :valid</code></li>
+                    <li>This is all the basic validation that HTML offers, anything else will have to be done with JS</li>
+                    <li>There are other pseudo-classes like <code>:user-valid, :in-range</code></li>
+                </ul>
+                <p>Various Form UX/UI Stuff</p>
+                <ul>
+                    <li>There are input type=""'s that are actually outputs:</li>
+                    <li><code>output</code> say, the result of a calculation</li>
+                    <li><code>progress</code> progress bar with "value" and "max" attributes</li>
+                    <li><code>meter</code> scale that changes between green, amber and red depending on values of <code>value, min, max, low, high, optimum</code> attributes</li>
+                    <li>Credit card best practice: use a text input but set the inputmode="numeric" so that there isn't increment and decrement buttons and add <code>autocomplete="cc-number"</code> to suggest any pre-configured cards</li>
+                    <li>You can stop form validation with <code>novalidate</code> attribute to the form tag or add <code>formnovalidate</code> to the submission button/image.</li>
+                    <li>Here's a list of relevant form pseudo-classes to style elements:
+                        <code class="block">:focus, :focus-within, :focus-visible, :required, :optional, :valid, :invalid, :user-valid, :user-invalid, :in-range, :out-of-range, :disabled, :enabled, :read-only, :read-write, :checked, :indeterminate, :default</code>
+                        and you can set placeholder style with <code>::placeholder</code> pseudo-element.
+                    </li>
+                    <li><a href="https://www.silocreativo.com/en/css-rescue-improving-ux-forms/">Form UI Suggestions</a></li>
+                    <li>Other good <a href="https://www.theodinproject.com/lessons/node-path-intermediate-html-and-css-form-validation">UX/UI Links on the Odin Page</a></li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Grid</h2>
+            <p>Grid stuff, eh.</p>
+            <section>
+                <h3>Introduction to Grid</h3>
                 <ul>
                     <li></li>
                     <li></li>
