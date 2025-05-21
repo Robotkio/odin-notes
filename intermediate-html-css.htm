@@ -435,10 +435,117 @@
         </section>
         <section>
             <h2>Grid</h2>
-            <p>Grid stuff, eh.</p>
+            <p>Introduction to Grid covers just review. Creating a Grid focuses on Grid foundations and default behaviours. Positioning Grid elements goes over how to assign positions to items adhering to a grid.</p>
             <section>
                 <h3>Introduction to Grid</h3>
                 <ul>
+                    <li>This was just review of flexbox and a comparison to Grid as an idea. Some good contextual links in the course.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Creating a Grid</h3>
+                <ul>
+                    <li>It's just <code>display: grid;</code> or <code>display: inline-grid</code> like flex.</li>
+                    <li><code>display: inline-grid;</code> makes the grid act like an inline element and not a block element.</li>
+                    <li>Only direct children become grid items, like flex.</li>
+                    <li>Add <code>grid-template-columns:</code> and <code>grid-template-rows:</code></li>
+                    <li>Templates take set of numbers after them. For instance three numbers like <code>50px 50px 50px</code> after grid-template-columns will make three columns that are 50px wide.</li>
+                    <li>Can do <code>grid-template: 10px / 20px 10px;</code> to make a 1-row, 2-column grid.</li>
+                    <li>Take a HTML example like this:
+                        <code class="block">
+                            &lt;ul class="grid-class"><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Item 1&lt;/li><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Item 2&lt;/li><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;lr>Item 3&lt;/li><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Item 4&lt;/li><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Item 5&lt;/li><br>
+                            &lt;/ul>
+                        </code>
+                        and CSS like this:
+                        <code class="block">
+                            grid-class {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;grid-template: 10px 10px / 10px 10px;<br>
+                            }
+                        </code>
+                        It would create a 2x2 grid with the fifth item outside of it on a new row. It implicitly creates new portions of grid.
+                    </li>
+                    <li>Use <code>grid-auto-rows: 10px;</code> and <code>grid-auto-columns: 10px;</code> to set the default size of items that fall outside the grid because the definitions from grid-template or grid-template-rows or grid-template-columns are not used here.</li>
+                    <li>By default, new <mark>items outside the grid will be placed on new rows and not columns.</mark> but you can change that behaviour with <code>grid-auto-flow: column;</code> and use the <code>grid-auto-columns: n;</code> property.</li>
+                    <li>You can use <code>gap, row-gap, column-gap</code> to set the gap between objects.</li>
+                    <li>Good troubleshooting options at <a href="https://developer.chrome.com/docs/devtools/css/grid/">this link</a>.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Positioning Grid Elements</h3>
+                <ul>
+                    <li>"Tracks" are shorthand for a single row or column.</li>
+                    <li>"Lines" are the created on either side of a track.</li>
+                    <li>"Cells" are the areas between lines.</li>
+                    <li>
+                        <code class="block">
+                            grid-column-start: 1;<br>
+                            grid-column-end: 6;<br>
+                            grid-row-start: 1;<br>
+                            grid-row-end: 3;
+                        </code>
+                        These define which cells an area takes up. In this case the area would range from column 1-6 and from row 1-3. Kind of like merging cells in excell except I'm pretty sure they can overlap.
+                    </li>
+                    <li>You can use shorthand for the aformentioned: <br>
+                        <code class="block">grid-column: 1 / 6;<br>
+                        grid-row: 1 / 3;</code></li>
+                    <li>Even more concise is <code>grid-area: 1 / 1 / 3 / 6;</code> that goes row-start, col-start, row-end, col-end.</li>
+                    <li>There's also another way that involves more setup, but a lot more simple payoff.
+                        <code class="block">grid-template-areas: "one one two"<br>
+                            "one one two"<br>
+                            "four three three";
+                        </code>
+                        This names individual cells in a 3x3 grid. You can assign those names like <code>grid-area: three;</code> and an item will exist in the bottom-center and bottom-right cells of the grid.
+                    </li>
+                    <li>Instead of names in grid-template-areas you can use a <code>.</code> to designate an empty or unnamed cell.</li>
+                    <li>From Grid Garden: I learned that you can do something like <code>grid-column-end: span 2;</code> to just span two columns.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Advanced Grid Properties</h3>
+                <ul>
+                    <li>I don't know if this can be used elsewhere, but they brough up <code>resize: both</code> as a CSS attribute and it lets you resize a grid.</li>
+                    <li>
+                        <code class="block">grid-template-rows: 10px 10px;<br>
+                        grid-template-columns: 10px 10px 10px 10px 10px;</code>
+                        can be rewritten as:
+                        <code class="block">grid-template-rows: repeat(2, 10px);<br>
+                        grid-template-columns: repeat(5, 10px);</code>
+                        so that's pretty neat
+                    </li>
+                    <li><code>fr</code> is a unit, it stands for "fractional unit". If a grid is 400px wide and has four items, all set as 1fr as their size, they will all be 100px.</li>
+                    <li>can do weird things like:
+                        <code class="block">grid-template-columns: repeat(2, 2fr) repeat(3, 1fr);</code>
+                        and the first two columns will be twice as wide as the last three <mark>if they have the space to epxand into</mark>, otherwise they will be at some minimum size
+                    </li>
+                    <li>you can, of course, mix and match unit in repeat()</li>
+                    <li>the minimum size is equal to the space the children in the items takes up</li>
+                    <li>can also use the <code>min-content</code></li>
+                    <li> useufl fun stuff ahead
+                        <code class="block">grid-template-rows: repeat(2, min(200px, 50%));<br>
+                        grid-template-columns: repeat(5, max(120px, 15%));</code>
+                        so the two rows will take up 50% of the space each or be at most 200px high while the columns will be at least 120px wide or take up 15% each.
+                    </li>
+                    <li>You can use the <code>minmax()</code> CSS function with only these properties:
+                        <code class="block">grid-template-columns <br>
+                        grid-template-rows <br>
+                        grid-auto-columns <br>
+                        grid-auto-rows</code>
+                        it's used like: <br>
+                        <code>grid-template-columns: repeat(5, minmax(150px, 200px));</code>
+                        this will cause the grid items to shrink down to 150px and grow up to 200px.
+                    </li>
+                    <li><code>clamp()</code> can also be used here:
+                        <code class="block">
+                            grid-template-columns: repeat(5, clamp(150px, 20%, 200px));
+                        </code>
+                        to act like minmax() but it can be used outside of grid. It will similarly not shrink below 150px or gro above 200px but will also try and take up 20% of the space. <mark>it's good practice to use a variable size for the middle value of clamp()</mark>
+                    </li>
                     <li></li>
                     <li></li>
                     <li></li>
