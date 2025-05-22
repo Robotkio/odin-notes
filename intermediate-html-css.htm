@@ -546,12 +546,17 @@
                         </code>
                         to act like minmax() but it can be used outside of grid. It will similarly not shrink below 150px or gro above 200px but will also try and take up 20% of the space. <mark>it's good practice to use a variable size for the middle value of clamp()</mark>
                     </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li><code>auto-fit</code> is a value that can be placed specifically in <code>repeat()</code> and it returns "the largest possible positive integer" without grid items overflowing their container. It lets you do things like: <br>
+                    <code>grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));</code><br></li>
+                    <li>This will create a dynamic number of columns by taking the width of the container and seeing how many times 150px will fit in it. It will then scale up the columns to the max value, in this case 1fr, to fit the column.</li>
+                    <li>Honestly it seems to make it dynamic like Flex but it keeps everything in a grid.</li>
+                    <li><code>auto-fit</code> works in a very similar way but it's more for when there are fewer items than will fill the grid area. It will scale the grid items to their max size.</li>
+                    <li><mark>I'll summerize this for myself:</mark> <br>
+                        <code>auto-fit</code> and <code>auto-fill</code> are used as the first argument in the <code>repeat()</code> CSS function. The first argument defines how many times to repeat, say, the number of columns and the second argument is how big the columns are. For example: <br>
+                        <code>grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));</code> <br>
+                        Say there's a grid that's 500px wide, it has two items in it and the above code is in the grid. With "auto-fit", auto-fit will be the value 2 and minmax will chose 1fr which will resolve to 250px, making a grid of two columns of 250px. With "auto-fill", auto-fill will be the value 3, minmax will chose 1fr which will resolve to ~167px, making the grid three columns 167px wide.
+                    </li>
+                    <li>There's great stuff on <a href="https://css-tricks.com/snippets/css/complete-guide-grid/#aa-css-grid-properties">css-tricks.com</a> that covers all the grid properties with examples.</li>
                     <li></li>
                     <li></li>
                     <li></li>
