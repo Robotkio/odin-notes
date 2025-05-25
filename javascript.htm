@@ -13,18 +13,84 @@
 <body>
     <div id="foldables">
         <h1>JavaScript Course</h1>
-        <p>Explain the major chapters here.</p>
+        <p><strong>Introduction</strong> just covers course structure and review.</p>
         <section>
             <h2>Introduction</h2>
-            <p>Explain Introduction chapters.</p>
+            <p>Everything in here is contextual and review. Nothing to dig into.</p>
             <section>
                 <h3>How This Course Will Work</h3>
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>Really just an overview of how the course will be structured. It's like the rest of them.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>A Quick Review</h3>
+                <ul>
+                    <li>Just about the only thing this part mentions is that jQuery has kind of fallen out of use because of DOM manipulation and AJAX are a lot easier now.</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Organizing Your JavaScript Code Introduction</h2>
+            <p>Organizing your JavaScript Code is just a section overview.</p>
+            <section>
+                <h3>Organizing your JavaScript Code</h3>
+                <ul>
+                    <li>Going to cover some patterns: JavaScript Objects, Object Constructors, Factory Functions, Module Pattern, Classes and ES6 Modules.</li>
+                    <li>It's also going to cover concepts like "closure", "prototypes" and whatever "IIFEs" are.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Introduction</h3>
+                <ul>
+                    <li>Review of object syntax: <br>
+                    <code class="block">const myObject = { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;property: 'Value!', <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;otherProperty: 77, <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"obnoxious property": function() { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// do stuff! <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                    };</code></li>
+                    <li>Accessing information review: <br>
+                    <code class="block">myObject.property; // 'Value'<br>
+                    myObject["obnoxious property"]; // [Function]</code></li>
+                    <li>Useful little reminder, you can acces properties within objects with variables like so: <br>
+                    <code class="block">const variable = 'otherProperty'; <br>
+                    myObject.variable; // doesn't work <br>
+                    myObject[variable]; // looks for a property called 'otherProperty' and returns 77</code></li>
+                    <li>Define an object like this: <br>
+                    <code class="block">function Player(name, marker) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;this.name = name; <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;this.marker = marker; <br>
+                    }</code></li>
+                    <li>And instantiate it like this: <br>
+                        <code>const player = new Player('Steve', 'X');</code>
+                    </li>
+                    <li>You can add functions pretty much like any other language except you seem to have to write them like this, for instance in the previous Player object: <br>
+                    <code class="block">this.sayName = function() { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;console.log(this.name);
+                    }</code></li>
+                    <li>Weirdly, you can call constructors without using the new keyword which does some bad stuff. So you can safeguard your constructor: <br>
+                    <code class="block">if(!new.target) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;throw Error("Use 'new' operator!"); <br>
+                    }</code></li>
+                    <li>Course asks me to make a constructor for a book, I'm pretty confident.</li>
+                    <li>Every object has a "prototype" which I think is the generic object blueprint that all instances of that object inherit from.</li>
+                    <li>You can access an objects prototype through, for instance, <code>layer.prototype;</code> or <code>Object.getPrototypeOf(playerVariable);</code></li>
+                    <li>You could see playerVariable.__proto__ or playerVariable.[[Prototype]] but these are deprecated.</li>
+                    <li>Object prototypes inherit from a base Object prototype with some built-in functions available to all Objects.</li>
+                    <li>Some built-in functions include <code>.valueOf()</code> which will get the value of an object, output varries by browser. Also <code>.hasOwnProperty('propertyName')</code> to check for the existance of a property.</li>
+                    <li>JS is single-inheritance.</li>
+                    <li>You use a line of code outside the object declaration to make an object inherit. It's with <code>Object.setPrototypeOf(AdvancedPlayer.prototype, Player.prototype)</code>. In this case AdvancedPlayer inherits from Player.</li>
+                    <li>It's useful to check for prototype matches, too, with something like: <code>Array.prototype.isPrototypeOf(objectVariable);</code> in this case it checks if the "objectVariable" object is of type array.</li>
+                    <li><mark>You need to set up this inheritance before instantiating any of the objects!</mark></li>
+                    <li>You "can" do something like <code>AdvancedPlayer.prototype = Player.prototype;</code> but that overwrites its prototype, not adds it.</li>
+                    <li>Note, a constructor function is just any old function. It's customary to capitalize its first letter and it's required to use the "new" keyword to instantiate it.</li>
+                    <li>Thankfully it is common practice to define functions inside an object, not assign it later, for readability purposes.</li>
+                    <li>I believe there's also function overloading. If a parent has a function and you assign a new function to a child objects function property it will be overwritten.</li>
+                    <li>The inheriting object is used for variable storage. That's where the keyword <code>this</code> comes into play. It always references the object. There's a good <a href="https://javascript.info/prototype-inheritance#the-value-of-this">example here</a>. So if a function that's defined in the parent adds a property value to a child that value is stored in the child.</li>
+                    <li><code>for..in</code> loops will go through all properties of an object. So <code>for(let prop in player) alert(prop);</code> would list all the properties in a Player object.</li>
+                    <li>One article mentions "this" works just like it does in Java, C# or PHP. I don't feel the need to read further.</li>
                 </ul>
             </section>
         </section>
