@@ -31,17 +31,17 @@
             </section>
         </section>
         <section>
-            <h2>Organizing Your JavaScript Code Introduction</h2>
+            <h2>Organizing Your JavaScript Code</h2>
             <p>Organizing your JavaScript Code is just a section overview.</p>
             <section>
-                <h3>Organizing your JavaScript Code</h3>
+                <h3>Organizing your JavaScript Code Introduction</h3>
                 <ul>
                     <li>Going to cover some patterns: JavaScript Objects, Object Constructors, Factory Functions, Module Pattern, Classes and ES6 Modules.</li>
                     <li>It's also going to cover concepts like "closure", "prototypes" and whatever "IIFEs" are.</li>
                 </ul>
             </section>
             <section>
-                <h3>Introduction</h3>
+                <h3>Objects and Object Constructors</h3>
                 <ul>
                     <li>Review of object syntax: <br>
                     <code class="block">const myObject = { <br>
@@ -91,6 +91,109 @@
                     <li>The inheriting object is used for variable storage. That's where the keyword <code>this</code> comes into play. It always references the object. There's a good <a href="https://javascript.info/prototype-inheritance#the-value-of-this">example here</a>. So if a function that's defined in the parent adds a property value to a child that value is stored in the child.</li>
                     <li><code>for..in</code> loops will go through all properties of an object. So <code>for(let prop in player) alert(prop);</code> would list all the properties in a Player object.</li>
                     <li>One article mentions "this" works just like it does in Java, C# or PHP. I don't feel the need to read further.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Factory Functions and the Module Pattern</h3>
+                <ul>
+                    <li><code>var</code> is "function scoped" which I think means it's open to anything within the function it's declared in, even if it's declared in a deeper scope</li>
+                    <li><code>let, const</code> are block scoped, like a normal variable</li>
+                    <li>This seems useful to remember: <br>
+                    <code class="block">
+                        function madeAdding(firstNumber) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;const first = firstNumber; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return function resulting(secondNumber) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const second = secondNumber; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return first + second; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        } <br>
+                        const add5 = makeAdding(5); <br>
+                        console.log(add5(2)); // 7 is logged
+                    </code>
+                    The function returns a function so add5 is now the function that madeAdding() returned. Scope-wise, it also holds the value 5 somehow.</li>
+                    <li>That '5' being maintained is called "lexical environment". When the function was declared it remembers the surrounding state.</li>
+                    <li>Ahh, JS works a bit different. Blocks in JS don't create scopes. "let" and "const" functionally add block scope by being block scope.</li>
+                        <li>An example use-case for this: <br>
+                        <code class="block">
+                            function makeSizer(size) { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return function () { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   document.body.style.fontSize = `${size}px`; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}; <br>
+                            } <br>
+                            const size12 = makeSizer(12); <br>
+                            const size16 = makeSizer(16); <br>
+                            document.getElementById("size-12").onclick = size12; <br>
+                            document.getElementById("size-16").onclick = size16;
+                        </code>
+                        This creates a "function factory". In this case it produces functions that change the pages font size that can be added to onclick events.</li>
+                    <li>Apparently constructors, like classic, object-oriented class <mark>constructors, aren't great</mark>. They look like regular functions. <code>instanceof</code> ins't great in JS because the constructor could have been changed since the object was instantiated and this wouldn't reflect that.</li>
+                    <li>Factory functions, like the above example, is more consistent but does have a performance hit.</li>
+                    <li>Here's an example of a constructor refactored into a factory function: <br>
+                    <code class="block">const User = function(name) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;this.name = name;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;this.discordName = '@' + name;<br>
+                        }<br>
+                        // refactor ...<br>
+                        function createUser(name) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;const discordName = '@' + name;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return { name, discordName };<br>
+                        }
+                    </code></li>
+                    <li>Little aside: the above <code>{ name, discordName }</code> creates an object dynamically, kind of like <code>{ name: name, discordName: discordName }</code>, it's just that the internal variables of the object are named after the variables used to create it.</li>
+                    <li>It lets you do neat things like <code>console.log({ name, age, color });</code> and it will output in a much more readable way that will list the variable name alongside their values.</li>
+                    <li>Weirdly, you can deconstruct objects like this: <br>
+                    <code class="block">
+                        const obj = { a: 1, b: 2 }; <br>
+                        const { a, b } = obj; <br>
+                        <br>
+                        const array = [1,2,3,4]; <br>
+                        const [ zerothElement, firstElement ] = array;
+                    </code>The first two lines create two variables, "a" and "b" that are the values of obj.a and obj.b respectively. The second two lines create two variables that are the first two elements of the array.</li>
+                    <li>WTF, there's even weirder things in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring">this MDN article</a>.</li>
+                    <li>The factory method lets us make private variables by taking advantage of that lexical environment. Having a variable in the factory counts as part of the context of the object creation but isn't an attribute accessable through, say, the dot operator. <br>
+                        <code class="block">
+                            function createUser(name) { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;let reputation = 0; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const getReputation = () => reputation; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const giveReputation = () => reputation++; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return { name, getReputation, giveReputation }; <br>
+                            } <br>
+                            const josh = createUser("josh"); <br>
+                            josh.giveReputation(); <br>
+                            console.log( { name: josh.name, reputation: josh.getReputation() } );
+                        </code>
+                    This basically creates a user object with methods but doesn't give access to the reputation variable since that's part of the lexical environment.</li>
+                    <li>You can do this in a constructor, but <mark>inheritance doesn't have access to the context of the constructor</mark> so it's not a good combo.</li>
+                    <li>We can extend factories like inheritance: <br>
+                        <code class="block">
+                        function createPlayer(name, level) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;const { getReputation, giveReputation } = createUser(name); <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;const increaseLevel = () => level++; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return { name, getReputation, giveReputation, increaseLevel }; <br>
+                        }
+                        </code>Apparently that's it. That can pull the old functions out, create new ones and return a new object with what was previously a User at its core.</li>
+                    <li>There's an alternative to the return line: <br>
+                        <code>return Object.assign({}, user, { increaseLevel });</code></li>
+                        I'm not entirely sure how it works but I can look into it.
+                    <li>There's another couple of useful things: the "module pattern" and IIFE's</li>
+                    <li>IIFE stands for Immediately Invoked Function Expression and involves wrapping a function in brackets and then immediately calling it. This helps to encapsulate the variables and functions within. See this example:
+                        <code class="block">
+                            const calculator = (function () { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const add = (a, b) => a + b; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const sub = (a, b) => a - b; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const mul = (a, b) => a * b; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const div = (a, b) => a / b; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return { add, sub, mul, div }; <br>
+                            })(); <br>
+                            calculator.add(3,5); // 8 <br>
+                            calculator.sub(6,2); // 4 <br>
+                            calculator.mul(14,5534); // 77476 <br>
+                        </code>
+                        The generic function is wrapped in () and then there's a () right after it that invokes it.
+                    </li>
+                    <li>This method also helps encapsulate these functions by making it necessary to put <code>calculator.</code> in front of them to invoke them. This helps avoid global level functions from having naming conflicts.</li>
+                    <li><mark>Avoid global variables!</mark></li>
+                    <li>Heck, encapsulate your whole module in a self-acting function that returns to your module name.</li>
                 </ul>
             </section>
         </section>
