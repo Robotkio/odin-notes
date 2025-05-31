@@ -196,6 +196,84 @@
                     <li>Heck, encapsulate your whole module in a self-acting function that returns to your module name.</li>
                 </ul>
             </section>
+            <section>
+                <h3>Classes</h3>
+                <ul>
+                    <li>Interestingly, JS added classes but it's really only in name and syntax. They aren't like classes in other OO languages, it's just syntactic sugar for what I've already been doing.</li>
+                    <li>So, for the syntactic sugar I can use <code>get, set</code> instead of <code>function</code> to basically do the same thing.</li>
+                    <li>The neat thing: this makes it so that you can just use the dot operator and the get/set methods will be used automatically.</li>
+                    <li>So if there's an object:
+                        <code class="block">let user = { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;name: "John", <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;surname: "Smith",
+                            &nbsp;&nbsp;&nbsp;&nbsp;get fullName() { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return `${this.name} ${this.surname}`; <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}, <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;set fullName(value) { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[this.name, this.surname] = value.split(" ");<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                            }; <br></code>
+                        Then you can call it with <code>user.fullName</code> or assign to it like <code>user.fullName = "Alice Cooper";</code>
+                    </li>
+                    <li>Class syntax is like this: <br>
+                        <code class="block">class User { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;constructor(name) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name = name; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;sayHi() { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(this.name); <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        } <br>
+                        let user = new User("John"); <br>
+                        user.sayHi();
+                        </code></li>
+                    <li>When the keyword <code>new</code> is used it implicitly, inside the constructor, creates an object called "this" before running all the other constructor instructions and then returns "this" at the end of it.</li>
+                    <li><mark>You don't need to put a comma between class methods</mark>, unlike in object literals!</li>
+                    <li><code>User</code> in the above code is still a function with the function code taken from the constructor. Class methods are stored in User.prototype.</li>
+                    <li>We could (mostly) get the same function as creating a class doing it this way:
+                        <code class="block">function User(name) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;this.name = name; <br>
+                        } <br>
+                        User.prototype.sayHi = function() { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert(this.name); <br>
+                        };</code>
+                        Though <a href="https://javascript.info/class">this document</a> says (unlike TOP) that <mark>it's not just syntactic sugar!</mark>
+                    </li>
+                    <li>A function created by a class is labelled by a special, interal property <code>[[IsClassConstructor]]: true</code> that is checked for in a number of places.</li>
+                    <li>It forces the usage of <code>new</code></li>
+                    <li>Class methods are non-enumerable. This means if you for..in them you wont iterate over the class methods.</li>
+                    <li>All code inside a class is in strict mode. (Makes it function a little closer to compiled languages I'm used to.)</li>
+                    <li>Computed function names are weird.
+                        <code class="block">class User { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;['say' + 'Hi']() { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Hello"); <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        }</code>
+                    </li>
+                    <li>Class fields seem just like fields. I can't really remember why this is unique in some way. They're just <br>
+                    <code>name = "John";</code> and accesed through <code>user.name;</code>. </li>
+                    <li>There's apparently an interesting issue called "losing this". Take this code: <br>
+                    <code class="block">class Button { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;constructor(value) { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.value = value; <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;click() { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(this.value); <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                        } <br>
+                        let button = new Button("hello"); <br>
+                        <mark>setTimeout(button.click, 1000); // undefined</mark></code></li>
+                        The issue is the "click" function "losing this". You need to change it to:
+                        <code class="block">click = () => { <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert(this.value); <br>
+                        }</code>
+                        I think this is related to the lexical environment concept.
+                    <li>It's also apparently common parlance put an underscore in front of a public variable that you shouldn't mess with.</li>
+                    <li>Interesting tip: if you have a depricated value in an object, say "age", and you replaced it with "birthday". You could create an age getter that calculates the age from birthday and returns that so the rest of the code doesn't have to be updated.</li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </section>
         </section>
     </div>
 </body>
