@@ -270,8 +270,14 @@
                         I think this is related to the lexical environment concept.
                     <li>It's also apparently common parlance put an underscore in front of a public variable that you shouldn't mess with.</li>
                     <li>Interesting tip: if you have a depricated value in an object, say "age", and you replaced it with "birthday". You could create an age getter that calculates the age from birthday and returns that so the rest of the code doesn't have to be updated.</li>
-                    <li></li>
-                    <li></li>
+                    <li>The next notes are from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">a few MDN articles</a>. TOP suggested not memorizing everything so these notes will be more sparse, probably ...</li>
+                    <li>If you declare an object, it seems like it should have a function named <code>constructor</code></li>
+                    <li>I don't know what a "static initialization block" is. Probably good to read more at some point.</li>
+                    <li>You can actually declare methods or fields static. Use it instead of "let" or "function".</li>
+                    <li>You seem to be able to define fields as private like <code>#height = 0;</code> (by adding the #). I think it makes referencing them an error?</li>
+                    <li>You can do good ol <code>class Dog extends Animal { }</code></li>
+                    <li><mark>If the child class has a constructor it needs to call <code>super()</code> in it!</mark></li>
+                    <li>The right side of "extends" doesn't have to be an identifier. It just has to evaluate to a constructor.</li>
                 </ul>
             </section>
         </section>
