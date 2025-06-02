@@ -280,6 +280,55 @@
                     <li>The right side of "extends" doesn't have to be an identifier. It just has to evaluate to a constructor.</li>
                 </ul>
             </section>
+            <section>
+                <h3>ES6 Modules</h3>
+                <ul>
+                    <li>ES6 & ESM can get rid of global scoped variables without having to put them in an IIFE.</li>
+                    <li>There are two ways to export things out of an ESM file, both use <code>export</code>
+                    <code class="block">// consider this in a file one.js <br>
+                        export const greeting = "Hello world!"; <br>
+                        // or ... <br>
+                        const greeting = "Hello world!"; <br>
+                        // then, near the end of the file ... <br>
+                        export { greeting };</code></li>
+                        Both will export, but that doesn't automatically make it global.
+                    <li>To import an exported value into another file you ...
+                        <code class="block">import { greeting } from "./one.js"; <br>
+                        console.log(greeting);</code>
+                    </li>
+                    <li>Note: the syntax of using { } to import and export <mark>doesn't create an object</mark>.</li>
+                    <li>There's another keyword, <code>default</code> that's also used for exporting. <mark>A file can only default export a single thing!</mark>
+                        <code class="block"> // consider this in file one.js <br>
+                        export default "Hello world!"; <br>
+                        // or ... <br>
+                        const greeting = "Hello world!"; <br>
+                        export default greeting;</code>
+                        Then, in another file you can import it. There's no actual variable name associated with exporting a default value so it can be renamed in the new file.
+                        <code class="block">import helloMessage from "./one.js";</code></li>
+                    <li>Apparently there isn't really an agreed upon standard for when to use default and when to use export.</li>
+                    <li>A little note on syntax for importing both a default and standard exports: <br>
+                        <code class="block">// consider this in "one.js" <br>
+                        export default "Hello, world!"; <br>
+                        export const farewell = "Goodbye, world!" <br></code>
+                        Now, in another file ...
+                        <code class="block">import greeting, { farewell } from "./one.js";</code></li>
+                    <li>This creates file dependencies which we can leave to the browser to import the correct ones. Use the following in the HTML
+                        <code>&lt;scrip src="two.js" <mark>type="module"</mark>&gt;&lt;script&gt;</code>. The <code>type="module"</code> lets the browser check out the imports and will also load the associated imports.
+                    </li>
+                    <li>This means you only need to have the least depended on file linked to the HTML. Or even specifically have one that loads the others.</li>
+                    <li>Also, <code>type="module"</code> acts as if you used the keyword <code>defer</code> so you don't need both.</li>
+                    <li>Fun fact: <mark>for security reasons modules like this will not be loaded if you open the HTML directly in the browser</mark> so I have to use an VS Code extension called "Live Preview".</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </section>
         </section>
     </div>
 </body>
