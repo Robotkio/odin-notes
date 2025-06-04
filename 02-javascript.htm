@@ -318,6 +318,46 @@
                     <li>This means you only need to have the least depended on file linked to the HTML. Or even specifically have one that loads the others.</li>
                     <li>Also, <code>type="module"</code> acts as if you used the keyword <code>defer</code> so you don't need both.</li>
                     <li>Fun fact: <mark>for security reasons modules like this will not be loaded if you open the HTML directly in the browser</mark> so I have to use an VS Code extension called "Live Preview".</li>
+                    <li>You can declare that a variable is exported before the variable is declared. (Useful for exports at the top of the file.)</li>
+                    <li>You can rename imports and exports with the "as" keyword. For example: <br>
+                        <code>export { myLongNameFunction as myFunc };</code> and then <br>
+                        <code>import { myFunc as otherModuleFunc } from "module-name";</code></li>
+                    <li>You can pass along exports from one file straight on through by <br>
+                        <code>export { default as func1, func2 } from "other_module.js";</code></li>
+                    <li>You could also just <code>export * from "module";</code> to pass everything through except for the default.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>npm</h3>
+                <ul>
+                    <li>npm (no capitals) apparently doesn't stand for Node Package Manager, though people will call it that. It does manage packages, though it does it just for JavaScript, not just Node.js.</li>
+                    <li>npm seems to revolve around a projects "package.json" file. That file has information about a projects dependencies and we would be able to use "nmp install" to install the required packages.</li>
+                    <li>installing a package just involves running <code>npm install &lt;package_name&gt;</code></li>
+                    <li>It will look for the package.json file to see which version it should install, if no package.json exists then the latest version will be installed.</li>
+                    <li>I don't understand what a scope is in this context but you can install scoped packages: <br>
+                        <code>npm install @scope/package-name</code></li>
+                    <li>You can install private packages the same way if you have read access.</li>
+                    <li>To see if it worked: look for a "node_modules" directory placed in the same directory that you ran npm in. Or <code>ls node_modules</code></li>
+                    <li>You can install different distributions by <code>npm install example-package@beta</code></li>
+                    <li>Adding a package.json file makes it easier for others to install dependencies.</li>
+                    <li>A package.json file has some required elements: name, version. Author is optional:
+                        <code class="block">{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "my-awesome-package",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"version": "1.0.0",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"author": "Your Name &lt;email@example.com&gt; (https://example.com)"<br>
+                        }</code>
+                        The formatting is important. Version must be "x.x.x" and author must be "name &lt;email&gt; (website)"
+                    </li>
+                    <li>You can create a package.json through npm by navigating to the directory and running <code>npm init</code>. It will run through a questionaire.</li>
+                    <li>For some reason you can make a custom questionaire? It's mentioned <a href="https://docs.npmjs.com/creating-a-package-json-filehttps://docs.npmjs.com/creating-a-package-json-file">on this site</a>.</li>
+                    <li>You can also run <code>npm init --yes</code> to make a package.json with default values extracted from the current directory.</li>
+                    <li>For running code, these packages are called "dependencies". If you only use them for developing the program (like testing) then they're called "development dependencies" or devDependencies in the json file.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Webpack</h3>
+                <ul>
+                    <li></li>
                     <li></li>
                     <li></li>
                     <li></li>
