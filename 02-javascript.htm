@@ -357,15 +357,80 @@
             <section>
                 <h3>Webpack</h3>
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>Webpack is a bundler. In that we provide it an entry point, it builds a dependency graph, then it merges all the files into one.</li>
+                    <li>It can also "minify" code to remove readability formatting and perform "tree shaking" that seeks out unreferenced code to remove.</li>
+                    <li>TOP mentions the difference between "src" and "dist" folders standing for "source" and "distribution". It's industry standard to work in src and then the bundler will package everything into dist.</li>
+                    <li>Note, you don't need file extensions in Webpack, but ESM does need it. I think I'm just going to use extensions.</li>
+                    <li>TOP goes through a tutorial setting up two .js files in the src/ folder: one called index.js that imports another .js file into it.</li>
+                    <li>Then run <code>npm init -y</code> to create the npm dependency file package.json.</li>
+                    <li>Then run <code>npm install --save-dev webpack webpack-cli</code> to install Webpack</li>
+                    <li>The "--save-dev" tells npm to consider these for development dependencies and not production dependencies.</li>
+                    <li>Then, back in the root directory we create a file <code>webpack.config.js</code> that contains the following:
+                        <code class="block">const path = require("path");<br>
+                            module.exports = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;mode: "development",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;entry: "./src/index.js",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;output: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename: "main.js",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: path.resolve(__dirname, "dist"),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clean: true,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            };</code>
+                        This is, apparently, using CommonJS formatting and not what I've been taught. But it grabs index.js from the src/ folder and builds it, and all its dependencies, into main.js in the dist/ folder.</li>
+                    <li>Development mode does ... something and "clean: true" clears out the dist/ folder before building.</li>
+                    <li>If that's all good I use <code>npx webpack</code> to build it.</li>
+                    <li>There's tutorial steps for HTML, CSS, images and more. To install these you need to run:
+                        <code class="block">
+                            npm install --save-dev html-webpack-plugin // for HTML<br>
+                            npm install --save-dev style-loader css-loader // for CSS<br>
+                            npm install --save-dev html-loader // for images
+                        </code>
+                    </li>
+                    <li>I'll cover the webpack.config.js file later. For now I'll cover specific notes about the ongoing process.</li>
+                    <li>For CSS: I needed to add <code>import "./styles.css";</code> into index.js.</li>
+                    <li>This is done because, in the future, it makes more sense to import many, smaller CSS files into whichever module uses them. The packager will merge them all in the end anyway.</li>
+                    <li>There are three ways to do images: (1) through <code>url()</code> in CSS (2) through things like the src of an &lt;img&gt; and (3) images used in JavaScript</li>
+                    <li>css-loader already handles it through CSS, html-loader handles images through HTML with some configuration, webpack handles images through JS with some configuration.</li>
+                    <li>The final webpack.config.js looks like this:
+                        <code class="block">const path = require("path");<br>
+                            const HtmlWebpackPlugin = require("html-webpack-plugin");<br>
+                            module.exports = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;mode: "development",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;entry: "./src/index.js",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;output: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename: "main.js",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: path.resolve(__dirname, "dist"),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clean: true,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;plugins: [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new HtmlWebpackPlugin({<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;template: "./src/template.html",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;],<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;module: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rules: [<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: /\.css$/i,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use: ["style-loader", "css-loader"],<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: /\.html$/i,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loader: "html-loader",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: /\.(png|svg|jpg|jpeg|gif)$/i,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: "asset/resource",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                            };
+                        </code>
+                    </li>
+                    <li><mark>Note, the two css loaders need to be in that order!</mark></li>
+                    <li>Lastly, the tutorial installs <code>npm install --save-dev webpack-dev-server</code> then runs <code>npx webpack serve</code> whenever we save. It also makes sure that error codes point to our source files, not the big, hybrid files that the packager makes.</li>
+                    <li>It requires adding some code to the webpack.config.js file but I'm tired of having to type in spaces.</li>
+                    <li>The webpack-dev-server can host the files locally so the page can be viewed on http://localhost:8080/</li>
+                    <li>Note, the webpack-dev-server only reads the webpack config when you launch it. You'll have to stop it and run <code>npx webpack serve</code> again</li>
                     <li></li>
                 </ul>
             </section>
