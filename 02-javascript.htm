@@ -428,7 +428,14 @@
                     </li>
                     <li><mark>Note, the two css loaders need to be in that order!</mark></li>
                     <li>Lastly, the tutorial installs <code>npm install --save-dev webpack-dev-server</code> then runs <code>npx webpack serve</code> whenever we save. It also makes sure that error codes point to our source files, not the big, hybrid files that the packager makes.</li>
-                    <li>It requires adding some code to the webpack.config.js file but I'm tired of having to type in spaces.</li>
+                    <li>It requires adding some code to the webpack.config.js file. After "output" and before "plugins" add:
+                        <code class="block">
+                            devtool: "eval-source-map",<br>
+                            devServer: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;watchFiles: [".src/template.html"],<br>
+                            },
+                        </code>
+                    </li>
                     <li>The webpack-dev-server can host the files locally so the page can be viewed on http://localhost:8080/</li>
                     <li>Note, the webpack-dev-server only reads the webpack config when you launch it. You'll have to stop it and run <code>npx webpack serve</code> again</li>
                     <li></li>
