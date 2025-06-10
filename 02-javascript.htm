@@ -32,7 +32,16 @@
         </section>
         <section>
             <h2>Organizing Your JavaScript Code</h2>
-            <p>Organizing your JavaScript Code is just a section overview.</p>
+            <p>Organizing your JavaScript Code is just a section overview. 
+                Objects and Object Constructors covers basic, class-like function and how JS emulates classes. 
+                Factory Functions and the Module Pattern covers, beyond its namesake, scope, lexical environment, object deconstruction. 
+                Classes explains the syntactic sugar ES6 added to make classes look more like thos in other languages and a bit more usage of "this".
+                ES6 Modules talks about export, import, default and "as".
+                npm covers high level package management and configuration.
+                Webpack talks about bundlers as well as the installation, usage and configuration of Webpack modules.    
+                Revisiting Webpack goes a little deeper into the theory and utility of webpack with resources on how to organize and maintain it all.
+                JSON is just that.
+            </p>
             <section>
                 <h3>Organizing your JavaScript Code Introduction</h3>
                 <ul>
@@ -438,7 +447,112 @@
                     </li>
                     <li>The webpack-dev-server can host the files locally so the page can be viewed on http://localhost:8080/</li>
                     <li>Note, the webpack-dev-server only reads the webpack config when you launch it. You'll have to stop it and run <code>npx webpack serve</code> again</li>
-                    <li></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Revisiting Webpack</h3>
+                <ul>
+                    <li>I can make npm scripts in the package.json file. Formatted like the following:
+                        <code class="block">"scripts": { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"build": "webpack", <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"dev": "webpack serve", <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"deploy": "git subtree push --prefix dist origin gh-pages" <br>
+                            },</code>
+                        Then, running something like <code>npm run build</code> will be the same as running "npm webpack" which isn't particularly different in this case, just more easy to remember because it's more obvious what it does.
+                    </li>
+                    <li>Webpack has two different modes, "development" and "production". Production, I think, makes everything a bit smaller.</li>
+                    <li>You can make a couple scripts to automatically swap between different <code>webpack.x.js</code> files.
+                        <code class="block">"build": "webpack --config webpack.prod.js", <br>
+                            "dev": "webpack serve --config webpack.dev.js"
+                        </code></li>
+                    <li>Fun fact: you can create any repository in Git to a template. Then, when creating a new repository, you can pick from a template. This could help organize boilerplate folder layouts and settings.</li>
+                    <li>Apparently common scripts are:
+                        <ul>
+                            <li>start - launch a server or application</li>
+                            <li>test - executes a test case for your project</li>
+                            <li>build - compiles and prepares production-ready code</li>
+                            <li>dev - starts a development server with live reloading</li>
+                            <li>lint - enforces code style guidelines by running a linter</li>
+                            <li>clean - removes build artifacts</li>
+                            <li>deploy - deploys to server or cloud</li>
+                        </ul>
+                    </li>
+                    <li>You can run scripts before and after a script with "pre___" and "post___" where the ___ is replaced with the script name. Like "prestart" will run before the "start" script and "posttest" will run after the test script.</li>
+                    <li>Check out <a href="https://www.upgrad.com/blog/introduction-to-package-json-scripts-in-node-js/">this article</a> for more specifics but I'll cover some of the overarching points.</li>
+                    <li>You can pass arguments to scripts. <code>npm run greet -- John</code> passes "John" to the "greet" script.</li>
+                    <li>Output can be utilized with standard console.log().</li>
+                    <li>You can run scripts in parallel with npm-run-all package (<code>npm install npm-run-all --save-dev</code>) or just do something like: <br>
+                        <code class="block">"scripts": { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"parallel-tasks": "npm run lint & npm run test" <br>
+                        }</code></li>
+                    <li>You can run scripts with root privileges</li>
+                    <li>You can access environment variables but that's not super clear to me, yet.</li>
+                    <li>Exit codes are important. npm will stop running scripts if one returns a non-zero value. But you can use || to run backup scripts!</li>
+                    <li>There's also a series of instructions on managing your package.json file...</li>
+                    <li>It mentions commands:
+                        <code class="block">npm init <br>
+                        npm install &lt;package-name&gt; <br>
+                        npm install &lt;package-name&gt; --save-dev // specifically for dev environment<br>
+                        npm uninstall &lt;package-name&gt; <br>
+                        npm install // ensure consistency between package.json and installed packages <br>
+                        npm update <br>
+                        npm audit // audit for vulnerabilities? <br>
+                        npm prune // clean unused dependencies</code>
+                    </li>
+                    <li>They mention a few tips that I think sounds good:
+                        <ul>
+                            <li>Regularly audit dependencies for vulnerabilities.</li>
+                            <li>Use semantic versioning (^,~) for precise dependency management.</li>
+                            <li>Group related npm scripts and document their purposes for easier maintenance.</li>
+                            <li>Keep the file clean by removing unused dependencies with npm prune.</li>
+                        </ul>
+                    </li>
+                    <li>They mention some best practices that seems straightforward, like keep ing it simple, using descriptive names etc...</li>
+                    <li>It also talks about benefits like consistency, shareability, automation etc...</li>
+                    <li><mark>I should check back here when I'm next fiddling with npm.</mark></li>
+                    <li>The next bit is reading rom a <a href="https://webpack.js.org/guides/production/">webpack.js.org article</a> on their idea of best practices for webpack.</li>
+                    <li>They suggest separate webpack configs for each environment (dev vs. deploy)</li>
+                    <li>There is a tool <code>npm install --save-dev webpack-merge</code> that is used to create common ground between dev and deploy to maintain DRY.</li>
+                    <li>So, rather than just a "webpack.config.js" we'll want
+                        <code class="block">webpack.common.js <br>
+                        webpack.dev.js <br>
+                        webpack.prod.js</code>
+                        The article goes over their version of basic differences, I won't copy them out here.
+                    </li>
+                    <li>I'll not go over specifics, but they mention minification and tree shaking.</li>
+                    <li>They mention source-mapping being good for debugging</li>
+                    <li>There's mention of minimizing css</li>
+                </ul>
+            </section>
+            <section>
+                <h3>JSON</h3>
+                <ul>
+                    <li>JSON is, largely, just a JavaScript object literal with some bonus syntax restrictions so it can be parsed into JS pretty easily.</li>
+                    <li>JSON can only contain serializable data types (string literals, number literals, true, false, null)</li>
+                    <li>It cannot contain undefined, NaN or Infinity</li>
+                    <li>It can contain object literals and arrays but not functions or other object types like Date, Set or Map.</li>
+                    <li>Strings must be in double, not single quotes.</li>
+                    <li>Numbers must be written in decimal notation</li>
+                    <li>Every property must be key value pairs and keys must be string literals in double-quotes.</li>
+                    <li>No trailing commas, no comments</li>
+                    <li>Will probably make frequent use of <code>JSON.parse(<em>string</em>);</code> and <code>JSON.stringify(<em>obj</em>);</code> that do what they say on the tin.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>OOP Principles</h3>
+                <ul>
+                    <li>Largely covers what I've learned about OOP. Some new, good phrasing I'll take note of.</li>
+                    <li>It's saying to think of Single Responsibility as a section of code should have "a single reason to change".</li>
+                    <li>Talks about lose coupling. One thing changing shouldn't effect another unrelated function.</li>
+                    <li>SOLID:
+                        <ul>
+                            <li>Single responsibility</li>
+                            <li>Open-closed</li>
+                            <li>Liskov substitution</li>
+                            <li>Interface segregation</li>
+                            <li>Dependency inversion</li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
         </section>
